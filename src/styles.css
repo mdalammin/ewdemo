@@ -121,53 +121,102 @@
   --sidebar-ring: oklch(0.32 0.075 250);
 }
 
+:root.brick-light-theme:not(.dark) {
+  --background: #fffaf7;
+  --foreground: #2c1610;
+
+  --card: #ffffff;
+  --card-foreground: #2c1610;
+  --popover: #ffffff;
+  --popover-foreground: #2c1610;
+
+  --primary: #a64b2a;
+  --primary-foreground: #ffffff;
+  --primary-soft: #eadbd3;
+  --primary-deep: #7a281a;
+
+  --secondary: #8f3e2c;
+  --secondary-foreground: #ffffff;
+
+  --muted: #f2ece8;
+  --muted-foreground: #6d5a50;
+
+  --accent: #c26d45;
+  --accent-foreground: #ffffff;
+
+  --gold: #c26d45;
+  --gold-foreground: #ffffff;
+
+  --destructive: #7a281a;
+  --destructive-foreground: #ffffff;
+
+  --border: #d2c9c2;
+  --input: #d2c9c2;
+  --ring: #a64b2a;
+
+  --chart-1: #a64b2a;
+  --chart-2: #7a281a;
+  --chart-3: #c26d45;
+  --chart-4: #8f3e2c;
+  --chart-5: #d2c9c2;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2c1610;
+  --sidebar-primary: #a64b2a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eadbd3;
+  --sidebar-accent-foreground: #7a281a;
+  --sidebar-border: #d2c9c2;
+  --sidebar-ring: #a64b2a;
+}
+
 .dark {
-  --background: oklch(0.14 0.015 250);
-  --foreground: oklch(0.985 0.005 60);
+  --background: #1f120e;
+  --foreground: #fff7f2;
 
-  --card: oklch(0.20 0.02 250);
-  --card-foreground: oklch(0.985 0.005 60);
-  --popover: oklch(0.20 0.02 250);
-  --popover-foreground: oklch(0.985 0.005 60);
+  --card: #2a1711;
+  --card-foreground: #fff7f2;
+  --popover: #2a1711;
+  --popover-foreground: #fff7f2;
 
-  --primary: oklch(0.70 0.13 250);
-  --primary-foreground: oklch(0.12 0.02 250);
-  --primary-soft: oklch(0.28 0.06 250);
-  --primary-deep: oklch(0.82 0.10 250);
+  --primary: #a64b2a;
+  --primary-foreground: #fffaf7;
+  --primary-soft: #3f2118;
+  --primary-deep: #7a281a;
 
-  --secondary: oklch(0.62 0.13 30);
-  --secondary-foreground: oklch(0.12 0.02 30);
+  --secondary: #8f3e2c;
+  --secondary-foreground: #fffaf7;
 
-  --muted: oklch(0.24 0.02 250);
-  --muted-foreground: oklch(0.80 0.02 250);
+  --muted: #352018;
+  --muted-foreground: #d2c9c2;
 
-  --accent: oklch(0.30 0.07 250);
-  --accent-foreground: oklch(0.97 0.02 250);
+  --accent: #c26d45;
+  --accent-foreground: #1f120e;
 
-  --gold: oklch(0.85 0.14 80);
-  --gold-foreground: oklch(0.18 0.04 60);
+  --gold: #c26d45;
+  --gold-foreground: #1f120e;
 
-  --destructive: oklch(0.70 0.21 27);
-  --destructive-foreground: oklch(0.14 0.02 27);
+  --destructive: #7a281a;
+  --destructive-foreground: #fffaf7;
 
-  --border: oklch(1 0 0 / 18%);
-  --input: oklch(1 0 0 / 22%);
-  --ring: oklch(0.70 0.13 250);
+  --border: rgb(210 201 194 / 22%);
+  --input: rgb(210 201 194 / 28%);
+  --ring: #a64b2a;
 
-  --chart-1: oklch(0.70 0.13 250);
-  --chart-2: oklch(0.72 0.16 30);
-  --chart-3: oklch(0.85 0.14 80);
-  --chart-4: oklch(0.75 0.15 145);
-  --chart-5: oklch(0.72 0.18 320);
+  --chart-1: #a64b2a;
+  --chart-2: #7a281a;
+  --chart-3: #c26d45;
+  --chart-4: #8f3e2c;
+  --chart-5: #d2c9c2;
 
-  --sidebar: oklch(0.17 0.02 250);
-  --sidebar-foreground: oklch(0.985 0.005 60);
-  --sidebar-primary: oklch(0.70 0.13 250);
-  --sidebar-primary-foreground: oklch(0.12 0.02 250);
-  --sidebar-accent: oklch(0.30 0.07 250);
-  --sidebar-accent-foreground: oklch(0.97 0.02 250);
-  --sidebar-border: oklch(1 0 0 / 14%);
-  --sidebar-ring: oklch(0.70 0.13 250);
+  --sidebar: #1f120e;
+  --sidebar-foreground: #fff7f2;
+  --sidebar-primary: #a64b2a;
+  --sidebar-primary-foreground: #fffaf7;
+  --sidebar-accent: #3f2118;
+  --sidebar-accent-foreground: #d2c9c2;
+  --sidebar-border: rgb(210 201 194 / 18%);
+  --sidebar-ring: #a64b2a;
 }
 
 @layer base {
@@ -183,12 +232,18 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
-  .font-serif { font-family: var(--font-serif); }
+  .font-serif {
+    font-family: var(--font-serif);
+  }
 }
 
 /* Reusable utilities */
-@utility text-balance { text-wrap: balance; }
-@utility text-pretty { text-wrap: pretty; }
+@utility text-balance {
+  text-wrap: balance;
+}
+@utility text-pretty {
+  text-wrap: pretty;
+}
 
 @utility brand-gradient {
   background-image: linear-gradient(135deg, var(--color-primary-deep), var(--color-primary));
@@ -208,8 +263,12 @@
 }
 
 @keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @utility shadow-brick {

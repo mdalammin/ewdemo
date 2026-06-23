@@ -23,15 +23,28 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "East West University, Excellence in Education" },
-      { name: "description", content: "EWU is a leading private university in Dhaka offering 30+ programs across Engineering, Business, Pharmacy, Law and Liberal Arts." },
+      {
+        name: "description",
+        content:
+          "EWU is a leading private university in Dhaka offering 30+ programs across Engineering, Business, Pharmacy, Law and Liberal Arts.",
+      },
       { property: "og:title", content: "East West University" },
-      { property: "og:description", content: "Excellence in Education. Programs, admission, research and campus life in Dhaka, Bangladesh." },
+      {
+        property: "og:description",
+        content:
+          "Excellence in Education. Programs, admission, research and campus life in Dhaka, Bangladesh.",
+      },
     ],
   }),
   component: Home,
 });
 
 function Home() {
+  React.useEffect(() => {
+    document.documentElement.classList.add("brick-light-theme");
+    return () => document.documentElement.classList.remove("brick-light-theme");
+  }, []);
+
   return (
     <div>
       <Hero />
