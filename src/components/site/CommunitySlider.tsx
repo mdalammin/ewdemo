@@ -2,25 +2,46 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Club
+import businessImg from "@/assets/club/business.jpg";
+import computerImg from "@/assets/club/computer.jpg";
+import debateImg from "@/assets/club/debate.jpg";
+import roboticsImg from "@/assets/club/robotics.jpg";
+
+// Departments
+import bbaImg from "@/assets/dept/bba.jpg";
+import civilImg from "@/assets/dept/civil.jpg";
+import cseImg from "@/assets/dept/cse.jpg";
+import ecoImg from "@/assets/dept/eco.jpg";
+import eeeImg from "@/assets/dept/eee.jpg";
+import englishImg from "@/assets/dept/english.jpg";
+
+// Research
+import research1Img from "@/assets/research/research1.jpg";
+import research2Img from "@/assets/research/research2.jpg";
+import research3Img from "@/assets/research/research3.jpg";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const ROW1 = [
-  { src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop", alt: "Students on campus" },
-  { src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop", alt: "Faculty teamwork" },
-  { src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop", alt: "Students collaborating" },
-  { src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop", alt: "Graduation ceremony" },
-  { src: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=1200&auto=format&fit=crop", alt: "Library and study" },
-  { src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop", alt: "Team discussion" },
+  { src: businessImg, alt: "Business Club" },
+  { src: computerImg, alt: "Computer Club" },
+  { src: debateImg, alt: "Debate Club" },
+  { src: roboticsImg, alt: "Robotics Club" },
+  { src: bbaImg, alt: "BBA Department" },
+  { src: civilImg, alt: "Civil Department" },
 ];
 
 const ROW2 = [
-  { src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop", alt: "Campus life" },
-  { src: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=1200&auto=format&fit=crop", alt: "Research lab" },
-  { src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop", alt: "Seminar session" },
-  { src: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1200&auto=format&fit=crop", alt: "Students learning" },
-  { src: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop", alt: "Campus community" },
-  { src: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200&auto=format&fit=crop", alt: "Classroom" },
+  { src: cseImg, alt: "CSE Department" },
+  { src: ecoImg, alt: "Economics Department" },
+  { src: eeeImg, alt: "EEE Department" },
+  { src: englishImg, alt: "English Department" },
+  { src: research1Img, alt: "Research 1" },
+  { src: research2Img, alt: "Research 2" },
 ];
+
+
 
 function ScrollRow({
   images,

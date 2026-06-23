@@ -27,18 +27,20 @@ import { CommunitySlider } from "@/components/site/CommunitySlider";
 import { FACULTY } from "@/lib/site-data";
 import { img } from "@/lib/images";
 
+import face1 from "@/assets/faculty/dr_maheen_islam.jpg";
+
 /* â"€â"€ Static CSE page data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop";
 
 const CHAIRPERSON = {
-  name: "Dr. Tasnia Rahman",
+  name: "Dr. Maheen Islam",
   title: "Chairperson & Associate Professor",
   dept: "Department of Computer Science and Engineering",
   faculty: "Faculty of Sciences & Engineering",
   email: "chair.cse@ewu.edu.bd",
   image:
-    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+    face1,
   message:
     "As Chairperson, it is my pleasure to welcome you to one of the university's oldest, largest, and most dynamic academic communities - the Department of Computer Science and Engineering. Home to more than 4,000 undergraduate and graduate students and supported by a strong team of full-time faculty alongside dedicated technical and administrative staff, the department has developed into a vibrant center for learning, inquiry, and innovation. We are committed to excellence in teaching, research, and service.",
 };
@@ -353,7 +355,7 @@ function CSEPage() {
     return () => document.documentElement.classList.remove("brick-light-theme");
   }, []);
 
-  const cseMembers = FACULTY.filter((f) => f.dept === "cse");
+  const cseMembers = FACULTY.slice(0, 4);
 
   /* Faculty slider responsive logic (4 desktop, 2 tablet, 1 mobile) */
   const [windowWidth, setWindowWidth] = React.useState(
@@ -465,11 +467,11 @@ function CSEPage() {
           </div>
 
           {/* â"€â"€ Sidebar + Chairperson row */}
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="grid md:grid-cols-[260px_1fr] lg:grid-cols-[300px_1fr] gap-0 -mt-2">
+          <div className="mx-auto max-w-7xl px-6 mt-6">
+            <div className="grid md:grid-cols-[260px_1fr] lg:grid-cols-[300px_1fr] gap-6 -mt-2">
               {/* Sidebar */}
               <div className="hidden md:block">
-                <div className="bg-primary text-primary-foreground  overflow-hidden shadow-brick">
+                <div className="bg-primary text-primary-foreground rounded-lg overflow-hidden shadow-brick">
                   <div className="px-5 py-4 border-b border-white/20">
                     <h2 className="font-serif text-base font-bold leading-snug pt-4">
                       Department of Computer Science &amp; Engineering
@@ -491,20 +493,20 @@ function CSEPage() {
               </div>
 
               {/* Chairperson card */}
-              <div className="bg-card border border-border rounded-2xl md:rounded-l-none md:rounded-r-none shadow-sm overflow-hidden">
+              <div className="bg-card border border-border rounded-2xl md:rounded-lg shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-border">
                   <p className="text-[10px] font-black uppercase tracking-[0.25em] text-primary pt-4">
                     Chairperson's Message
                   </p>
                 </div>
-                <div className="p-6 grid sm:grid-cols-[160px_1fr] gap-6 items-start">
+                <div className="p-6 grid sm:grid-cols-[250px_1fr] gap-6 items-start">
                   <div className="relative shrink-0 mx-auto sm:mx-0">
                     <div className="absolute -inset-2 rounded-xl border border-border/60" />
                     <div className="absolute -inset-1 rounded-lg border border-primary/20" />
                     <img
                       src={CHAIRPERSON.image}
                       alt={CHAIRPERSON.name}
-                      className="relative h-48 w-full object-cover object-top rounded-lg shadow-sm"
+                      className="relative h-72 w-full object-cover object-top rounded-lg shadow-sm"
                     />
                   </div>
                   <div>

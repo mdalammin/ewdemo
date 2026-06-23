@@ -93,11 +93,11 @@ export function Footer() {
           <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">Quick Links</h4>
           <ul className="space-y-2 text-sm text-foreground/75">
             {[
-              ["/about", "About EWU"],
-              ["/admission", "Admission"],
-              ["/research", "Research"],
-              ["/departments", "Departments"],
-              ["/contact", "Contact"],
+              ["#", "About EWU"],
+              ["#", "Admission"],
+              ["#", "Research"],
+              ["#", "Departments"],
+              ["#", "Contact"],
             ].map(([h, l]) => (
               <li key={h}>
                 <Link to={h} className="transition-colors hover:text-primary">{l}</Link>

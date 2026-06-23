@@ -127,8 +127,8 @@ export const FACULTY = [
     id: "Maheen",
     name: "Dr. Maheen Islam",
     img: "face-1",
-    imageUrl:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
     dept: "cse",
     designation: "Chairperson , Associate Professor, Department of Computer Science & Engineering",
     interests: ["Machine Learning", "NLP for Bangla", "Health AI"],
@@ -168,8 +168,8 @@ export const FACULTY = [
     id: "Dr. Anindita Paul",
     name: "Dr. Anindita Paul",
     img: "face-4",
-    imageUrl:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
     dept: "cse",
     designation: "Chairperson ,  Professor, Department of Mathematical and Physical Sciences",
     interests: ["Distributed Systems", "Edge Computing"],
