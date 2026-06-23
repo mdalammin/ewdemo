@@ -55,7 +55,7 @@ export function ResearchHighlights() {
         <div className="mt-16 grid gap-6 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 px-6 py-10 sm:grid-cols-4 backdrop-blur">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
-              <p className="font-serif text-3xl font-bold text-gold md:text-4xl">
+              <p className="font-serif text-3xl font-bold text-white/70 md:text-4xl">
                 <CountUp end={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
               <p className="mt-2 text-[11px] uppercase tracking-wider text-primary-foreground/70">{s.label}</p>
