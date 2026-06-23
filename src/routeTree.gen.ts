@@ -14,6 +14,7 @@ import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as DepartmentsRouteImport } from './routes/departments'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComputerScienceEngineeringRouteImport } from './routes/computer-science-engineering'
 import { Route as ClubsRouteImport } from './routes/clubs'
 import { Route as AdmissionRouteImport } from './routes/admission'
 import { Route as AcademicCalendarRouteImport } from './routes/academic-calendar'
@@ -23,6 +24,7 @@ import { Route as LoginStudentRouteImport } from './routes/login.student'
 import { Route as LoginNtsRouteImport } from './routes/login.nts'
 import { Route as LoginFacultyRouteImport } from './routes/login.faculty'
 import { Route as FacultyIdRouteImport } from './routes/faculty.$id'
+import { Route as FacultiesSlugRouteImport } from './routes/faculties.$slug'
 import { Route as DepartmentsSlugRouteImport } from './routes/departments.$slug'
 
 const ResearchRoute = ResearchRouteImport.update({
@@ -50,6 +52,12 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComputerScienceEngineeringRoute =
+  ComputerScienceEngineeringRouteImport.update({
+    id: '/computer-science-engineering',
+    path: '/computer-science-engineering',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ClubsRoute = ClubsRouteImport.update({
   id: '/clubs',
   path: '/clubs',
@@ -95,6 +103,11 @@ const FacultyIdRoute = FacultyIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => FacultyRoute,
 } as any)
+const FacultiesSlugRoute = FacultiesSlugRouteImport.update({
+  id: '/faculties/$slug',
+  path: '/faculties/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DepartmentsSlugRoute = DepartmentsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -107,12 +120,14 @@ export interface FileRoutesByFullPath {
   '/academic-calendar': typeof AcademicCalendarRoute
   '/admission': typeof AdmissionRoute
   '/clubs': typeof ClubsRoute
+  '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/faculties/$slug': typeof FacultiesSlugRoute
   '/faculty/$id': typeof FacultyIdRoute
   '/login/faculty': typeof LoginFacultyRoute
   '/login/nts': typeof LoginNtsRoute
@@ -124,12 +139,14 @@ export interface FileRoutesByTo {
   '/academic-calendar': typeof AcademicCalendarRoute
   '/admission': typeof AdmissionRoute
   '/clubs': typeof ClubsRoute
+  '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/faculties/$slug': typeof FacultiesSlugRoute
   '/faculty/$id': typeof FacultyIdRoute
   '/login/faculty': typeof LoginFacultyRoute
   '/login/nts': typeof LoginNtsRoute
@@ -142,12 +159,14 @@ export interface FileRoutesById {
   '/academic-calendar': typeof AcademicCalendarRoute
   '/admission': typeof AdmissionRoute
   '/clubs': typeof ClubsRoute
+  '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/faculties/$slug': typeof FacultiesSlugRoute
   '/faculty/$id': typeof FacultyIdRoute
   '/login/faculty': typeof LoginFacultyRoute
   '/login/nts': typeof LoginNtsRoute
@@ -161,12 +180,14 @@ export interface FileRouteTypes {
     | '/academic-calendar'
     | '/admission'
     | '/clubs'
+    | '/computer-science-engineering'
     | '/contact'
     | '/departments'
     | '/facilities'
     | '/faculty'
     | '/research'
     | '/departments/$slug'
+    | '/faculties/$slug'
     | '/faculty/$id'
     | '/login/faculty'
     | '/login/nts'
@@ -178,12 +199,14 @@ export interface FileRouteTypes {
     | '/academic-calendar'
     | '/admission'
     | '/clubs'
+    | '/computer-science-engineering'
     | '/contact'
     | '/departments'
     | '/facilities'
     | '/faculty'
     | '/research'
     | '/departments/$slug'
+    | '/faculties/$slug'
     | '/faculty/$id'
     | '/login/faculty'
     | '/login/nts'
@@ -195,12 +218,14 @@ export interface FileRouteTypes {
     | '/academic-calendar'
     | '/admission'
     | '/clubs'
+    | '/computer-science-engineering'
     | '/contact'
     | '/departments'
     | '/facilities'
     | '/faculty'
     | '/research'
     | '/departments/$slug'
+    | '/faculties/$slug'
     | '/faculty/$id'
     | '/login/faculty'
     | '/login/nts'
@@ -213,11 +238,13 @@ export interface RootRouteChildren {
   AcademicCalendarRoute: typeof AcademicCalendarRoute
   AdmissionRoute: typeof AdmissionRoute
   ClubsRoute: typeof ClubsRoute
+  ComputerScienceEngineeringRoute: typeof ComputerScienceEngineeringRoute
   ContactRoute: typeof ContactRoute
   DepartmentsRoute: typeof DepartmentsRouteWithChildren
   FacilitiesRoute: typeof FacilitiesRoute
   FacultyRoute: typeof FacultyRouteWithChildren
   ResearchRoute: typeof ResearchRoute
+  FacultiesSlugRoute: typeof FacultiesSlugRoute
   LoginFacultyRoute: typeof LoginFacultyRoute
   LoginNtsRoute: typeof LoginNtsRoute
   LoginStudentRoute: typeof LoginStudentRoute
@@ -258,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/computer-science-engineering': {
+      id: '/computer-science-engineering'
+      path: '/computer-science-engineering'
+      fullPath: '/computer-science-engineering'
+      preLoaderRoute: typeof ComputerScienceEngineeringRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clubs': {
@@ -323,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FacultyIdRouteImport
       parentRoute: typeof FacultyRoute
     }
+    '/faculties/$slug': {
+      id: '/faculties/$slug'
+      path: '/faculties/$slug'
+      fullPath: '/faculties/$slug'
+      preLoaderRoute: typeof FacultiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/departments/$slug': {
       id: '/departments/$slug'
       path: '/$slug'
@@ -362,11 +403,13 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicCalendarRoute: AcademicCalendarRoute,
   AdmissionRoute: AdmissionRoute,
   ClubsRoute: ClubsRoute,
+  ComputerScienceEngineeringRoute: ComputerScienceEngineeringRoute,
   ContactRoute: ContactRoute,
   DepartmentsRoute: DepartmentsRouteWithChildren,
   FacilitiesRoute: FacilitiesRoute,
   FacultyRoute: FacultyRouteWithChildren,
   ResearchRoute: ResearchRoute,
+  FacultiesSlugRoute: FacultiesSlugRoute,
   LoginFacultyRoute: LoginFacultyRoute,
   LoginNtsRoute: LoginNtsRoute,
   LoginStudentRoute: LoginStudentRoute,

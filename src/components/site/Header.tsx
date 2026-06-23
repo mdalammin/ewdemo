@@ -11,6 +11,7 @@ import {
   Briefcase,
   Phone,
   LogIn,
+  Search,
 } from "lucide-react";
 
 import { useTheme } from "./ThemeProvider";
@@ -19,10 +20,13 @@ import { SITE } from "@/lib/site-data";
 
 const MAIN_NAV = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/admission", label: "Admission" },
-  { to: "/facilities", label: "Facilities" },
-  { to: "/research", label: "Research" },
+  // { to: "/departments", label: "Departments" },
+  // { to: "/faculty", label: "Faculty" },
+  { to: "/clubs", label: "Clubs" },
+  // { to: "/about", label: "About" },
+  // { to: "/admission", label: "Admission" },
+  // { to: "/facilities", label: "Facilities" },
+  // { to: "/research", label: "Research" },
 ] as const;
 
 const OTHERS = [
@@ -39,11 +43,24 @@ const LOGINS = [
   { to: "/login/nts", label: "NTS", icon: Briefcase, desc: "Non-teaching staff workspace" },
 ] as const;
 
+const FACULTIES_MENU = [
+  { to: "/faculties/science-engineering", label: "Faculty of Science & Engineering" },
+  // { to: "/faculties/business-economics", label: "Business & Economics" },
+  // { to: "/faculties/liberal-arts-social-sciences", label: "Liberal Arts & Social Sciences" },
+] as const;
+
+const DEPARTMENTS_MENU = [
+  { to: "/computer-science-engineering", label: "Computer Science & Engineering", short: "CSE" },
+] as const;
+
 export function Header() {
   const { theme, toggle } = useTheme();
   const [mobile, setMobile] = React.useState(false);
   const [othersOpen, setOthersOpen] = React.useState(false);
   const [loginOpen, setLoginOpen] = React.useState(false);
+  const [searchOpen, setSearchOpen] = React.useState(false);
+  const [facultiesOpen, setFacultiesOpen] = React.useState(false);
+  const [departmentsOpen, setDepartmentsOpen] = React.useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-xl">
@@ -80,28 +97,75 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+
+          {/* Faculties Dropdown */}
           <div
             className="relative"
-            onMouseEnter={() => setOthersOpen(true)}
-            onMouseLeave={() => setOthersOpen(false)}
-            onFocus={() => setOthersOpen(true)}
+            onMouseEnter={() => setFacultiesOpen(true)}
+            onMouseLeave={() => setFacultiesOpen(false)}
+            onFocus={() => setFacultiesOpen(true)}
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOthersOpen(false);
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFacultiesOpen(false);
             }}
           >
-            <button aria-haspopup="menu" aria-expanded={othersOpen} className={`relative inline-flex items-center gap-1 py-2 text-sm font-medium transition-colors hover:text-primary after:absolute cursor-pointer after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${othersOpen ? "text-primary after:!w-full" : "text-foreground/80"}`}>
-              Others <ChevronDown className="h-4 w-4" />
+            <button
+              aria-haspopup="menu"
+              aria-expanded={facultiesOpen}
+              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
+                facultiesOpen ? "text-primary after:!w-full" : "text-foreground/80"
+              }`}
+            >
+              Faculties <ChevronDown className="h-4 w-4" />
             </button>
-            {othersOpen && (
-              <div className="absolute right-0 top-full w-56 pt-2">
-                <div className="overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-brick">
-                  {OTHERS.map((o) => (
+            {facultiesOpen && (
+              <div className="absolute left-0 top-full w-64 pt-2">
+                <div className="overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-brick animate-in fade-in slide-in-from-top-2 duration-200">
+                  {FACULTIES_MENU.map((fMenu) => (
                     <Link
-                      key={o.to}
-                      to={o.to}
-                      className="block rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
+                      key={fMenu.to}
+                      to={fMenu.to}
+                      onClick={() => setFacultiesOpen(false)}
+                      className="block rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground font-medium"
                     >
-                      {o.label}
+                      {fMenu.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Departments Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setDepartmentsOpen(true)}
+            onMouseLeave={() => setDepartmentsOpen(false)}
+            onFocus={() => setDepartmentsOpen(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDepartmentsOpen(false);
+            }}
+          >
+            <button
+              aria-haspopup="menu"
+              aria-expanded={departmentsOpen}
+              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
+                departmentsOpen ? "text-primary after:!w-full" : "text-foreground/80"
+              }`}
+            >
+              Departments <ChevronDown className="h-4 w-4" />
+            </button>
+            {departmentsOpen && (
+              <div className="absolute left-0 top-full w-64 pt-2">
+                <div className="overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-brick animate-in fade-in slide-in-from-top-2 duration-200">
+                  {DEPARTMENTS_MENU.map((dMenu) => (
+                    <Link
+                      key={dMenu.to}
+                      to={dMenu.to}
+                      onClick={() => setDepartmentsOpen(false)}
+                      className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground font-medium"
+                    >
+                      <span className="inline-flex h-6 w-10 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">{dMenu.short}</span>
+                      {dMenu.label}
                     </Link>
                   ))}
                 </div>
@@ -147,6 +211,36 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <div
+            className="relative"
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSearchOpen(false);
+            }}
+          >
+            <button
+              onClick={() => setSearchOpen((s) => !s)}
+              aria-label="Search"
+              aria-expanded={searchOpen}
+              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-border bg-card text-foreground/80 transition-colors hover:border-primary hover:text-primary"
+            >
+              {searchOpen ? <X className="h-4 w-4" /> : <Search className="h-4 w-4" />}
+            </button>
+            {searchOpen && (
+              <div className="absolute right-0 top-full mt-2 w-64 lg:w-72">
+                <div className="overflow-hidden rounded-xl border border-border bg-popover p-2 shadow-brick">
+                  <div className="relative">
+                    <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="search"
+                      placeholder="Search programs, faculties..."
+                      className="w-full rounded-md border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <button
             onClick={toggle}
             aria-label="Toggle theme"
@@ -174,13 +268,36 @@ export function Header() {
       {mobile && (
         <div className="border-t border-border bg-background lg:hidden">
           <div className="mx-auto max-w-7xl space-y-1 px-4 py-3">
-            {[...MAIN_NAV, ...OTHERS].map((item) => (
+            {[...MAIN_NAV].map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setMobile(false)}
                 className="block rounded-md px-3 py-2 text-sm font-medium text-foreground/85 hover:bg-accent"
               >
+                {item.label}
+              </Link>
+            ))}
+            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Faculties</p>
+            {FACULTIES_MENU.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobile(false)}
+                className="block rounded-md px-3 py-2 text-sm font-medium text-foreground/85 hover:bg-accent"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Departments</p>
+            {DEPARTMENTS_MENU.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobile(false)}
+                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/85 hover:bg-accent"
+              >
+                <span className="inline-flex h-5 w-9 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">{item.short}</span>
                 {item.label}
               </Link>
             ))}

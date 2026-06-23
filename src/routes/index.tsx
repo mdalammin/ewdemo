@@ -43,10 +43,10 @@ function Home() {
       <ScholarshipsBlock />
       <FacilitiesBlock />
       <ResearchHighlights />
+      <AchievementsBlock />
       <FacultySpotlight />
       <ClubsBlock />
       <CalendarPreview />
-      <AchievementsBlock />
       <GalleryBlock />
       <AlumniBlock />
       <FAQBlock />

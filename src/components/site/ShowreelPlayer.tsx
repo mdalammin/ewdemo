@@ -5,7 +5,7 @@ import { Play } from "lucide-react";
  * YouTube embed that auto-plays when scrolled into view and pauses on scroll-out.
  * If the user manually pauses (via the YT player), it will NOT auto-resume.
  */
-export function ShowreelPlayer({ videoId = "p9BdSGgjS64", title = "YouTube video player" }: { videoId?: string; title?: string }) {
+export function ShowreelPlayer({ videoId = "LlCwHnp3kL4", title = "YouTube video player" }: { videoId?: string; title?: string }) {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
   const manuallyPaused = React.useRef(false);
   const inView = React.useRef(false);
