@@ -40,7 +40,7 @@ import deptEco from "@/assets/dept/eco.jpg";
 import deptEnglish from "@/assets/dept/english.jpg";
 
 // Swiper types only — real import happens client-side in NewsSlider
-type SwiperType = import('swiper').Swiper;
+type SwiperType = import("swiper").Swiper;
 
 interface Dean {
   name: string;
@@ -614,33 +614,39 @@ const RECENT_NEWS = [
   {
     date: "10 Jun 2025",
     title: "Huawei and BRACNet Host 'Campus NextGen' to Advance Smart Education in Bangladesh",
-    excerpt: "In a significant stride toward digital transformation in the education sector, BRACNet...",
+    excerpt:
+      "In a significant stride toward digital transformation in the education sector, BRACNet...",
     image: deptCse,
   },
   {
     date: "05 May 2025",
     title: "DNA Day Celebration at GEB EWU",
-    excerpt: "Biotech Club, East West University proudly organized a day-long event titled 'Honouri...",
+    excerpt:
+      "Biotech Club, East West University proudly organized a day-long event titled 'Honouri...",
     image: deptEee,
   },
   {
     date: "03 Mar 2025",
-    title: "Department of CSE Successfully Organized a Seminar on 'Revolutionizing the Telecom Industry'",
-    excerpt: "The Department of Computer Science and Engineering at East West University recently h...",
+    title:
+      "Department of CSE Successfully Organized a Seminar on 'Revolutionizing the Telecom Industry'",
+    excerpt:
+      "The Department of Computer Science and Engineering at East West University recently h...",
     image: deptCivil,
   },
   {
     date: "09 Dec 2024",
     title: "Department of Pharmacy Celebrates 'Pharma Carnival 2024': A Grand Celebration",
-    excerpt: "The Department of Pharmacy of East West University has organized a two day long 'Phar...",
+    excerpt:
+      "The Department of Pharmacy of East West University has organized a two day long 'Phar...",
     image: deptBba,
   },
   {
     date: "15 Oct 2024",
     title: "English Department hosts International Literature Conference",
-    excerpt: "Scholars from around the world gathered to discuss contemporary South Asian literature...",
+    excerpt:
+      "Scholars from around the world gathered to discuss contemporary South Asian literature...",
     image: deptEnglish,
-  }
+  },
 ];
 
 // ─── Client-only News Slider ────────────────────────────────────────────────
@@ -657,16 +663,26 @@ function NewsSlider({
   nextRef: React.RefObject<HTMLButtonElement | null>;
 }) {
   const [ready, setReady] = React.useState(false);
-  const [SwiperComp, setSwiperComp] = React.useState<typeof import('swiper/react')['Swiper'] | null>(null);
-  const [SwiperSlideComp, setSwiperSlideComp] = React.useState<typeof import('swiper/react')['SwiperSlide'] | null>(null);
-  const [mods, setMods] = React.useState<[typeof import('swiper/modules')['Navigation'], typeof import('swiper/modules')['Autoplay']] | null>(null);
+  const [SwiperComp, setSwiperComp] = React.useState<
+    (typeof import("swiper/react"))["Swiper"] | null
+  >(null);
+  const [SwiperSlideComp, setSwiperSlideComp] = React.useState<
+    (typeof import("swiper/react"))["SwiperSlide"] | null
+  >(null);
+  const [mods, setMods] = React.useState<
+    | [
+        (typeof import("swiper/modules"))["Navigation"],
+        (typeof import("swiper/modules"))["Autoplay"],
+      ]
+    | null
+  >(null);
 
   React.useEffect(() => {
     Promise.all([
-      import('swiper/react'),
-      import('swiper/modules'),
-      import('swiper/css' as string),
-      import('swiper/css/navigation' as string),
+      import("swiper/react"),
+      import("swiper/modules"),
+      import("swiper/css" as string),
+      import("swiper/css/navigation" as string),
     ]).then(([{ Swiper: S, SwiperSlide: SS }, { Navigation, Autoplay }]) => {
       setSwiperComp(() => S);
       setSwiperSlideComp(() => SS);
@@ -811,7 +827,7 @@ function FacultyDivisionPage() {
     const handleResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        if (typeof window === 'undefined') return;
+        if (typeof window === "undefined") return;
         // Chairpersons visible count
         if (window.innerWidth < 640) {
           setChairVisibleCount(1);
@@ -830,7 +846,7 @@ function FacultyDivisionPage() {
       }, 150);
     };
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Call immediately without delay for initial render setup
       if (window.innerWidth < 640) setChairVisibleCount(1);
       else if (window.innerWidth < 1024) setChairVisibleCount(2);
@@ -842,7 +858,7 @@ function FacultyDivisionPage() {
       window.addEventListener("resize", handleResize);
     }
     return () => {
-      if (typeof window !== 'undefined') window.removeEventListener("resize", handleResize);
+      if (typeof window !== "undefined") window.removeEventListener("resize", handleResize);
       clearTimeout(timeoutId);
     };
   }, []);
@@ -1209,7 +1225,7 @@ function FacultyDivisionPage() {
                           className={cn(
                             "inline-block rounded-md px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors shadow-sm",
                             TAG_STYLES[n.tag] ??
-                            "bg-muted text-muted-foreground border border-border",
+                              "bg-muted text-muted-foreground border border-border",
                           )}
                         >
                           {n.tag}
@@ -1455,10 +1471,11 @@ function FacultyDivisionPage() {
                     key={idx}
                     onClick={() => setChairIndex(idx)}
                     aria-label={`Go to slide ${idx + 1}`}
-                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${idx === chairIndex
-                      ? "w-8 bg-primary"
-                      : "w-2.5 bg-border hover:bg-muted-foreground/45"
-                      }`}
+                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${
+                      idx === chairIndex
+                        ? "w-8 bg-primary"
+                        : "w-2.5 bg-border hover:bg-muted-foreground/45"
+                    }`}
                   />
                 ))}
               </div>
@@ -1488,17 +1505,19 @@ function FacultyDivisionPage() {
                 <button
                   key={level}
                   onClick={() => setStudyLevelTab(level)}
-                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${studyLevelTab === level
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                    }`}
+                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                    studyLevelTab === level
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  }`}
                 >
                   <span>{level}</span>
                   <span
-                    className={`text-[10px] font-bold mt-0.5 ${studyLevelTab === level
-                      ? "text-primary-foreground/70"
-                      : "text-muted-foreground/60"
-                      }`}
+                    className={`text-[10px] font-bold mt-0.5 ${
+                      studyLevelTab === level
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground/60"
+                    }`}
                   >
                     {counts} Program{counts !== 1 ? "s" : ""}
                   </span>
@@ -1582,7 +1601,10 @@ function FacultyDivisionPage() {
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-8">
             Don't Miss Awesome Story From Our Alumni
           </h2>
-          <form className="mx-auto flex flex-col items-center gap-4 max-w-sm" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="mx-auto flex flex-col items-center gap-4 max-w-sm"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               type="email"
               placeholder="Your E-mail Address"
@@ -1632,11 +1654,7 @@ function FacultyDivisionPage() {
           </div>
 
           <div className="-mx-4 px-4 pb-8 lg:pb-0">
-            <NewsSlider
-              news={RECENT_NEWS}
-              prevRef={newsPrevRef}
-              nextRef={newsNextRef}
-            />
+            <NewsSlider news={RECENT_NEWS} prevRef={newsPrevRef} nextRef={newsNextRef} />
           </div>
         </div>
       </section>
