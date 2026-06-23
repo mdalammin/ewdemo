@@ -38,13 +38,18 @@ const OTHERS = [
 ] as const;
 
 const LOGINS = [
-  { to: "/login/student", label: "Student", icon: GraduationCap, desc: "Grades, registration, resources" },
+  {
+    to: "/login/student",
+    label: "Student",
+    icon: GraduationCap,
+    desc: "Grades, registration, resources",
+  },
   { to: "/login/faculty", label: "Faculty", icon: User, desc: "Courses, attendance, grading" },
   { to: "/login/nts", label: "NTS", icon: Briefcase, desc: "Non-teaching staff workspace" },
 ] as const;
 
 const FACULTIES_MENU = [
-  { to: "/faculties/science-engineering", label: "Faculty of Science & Engineering" },
+  { slug: "science-engineering", label: "Faculty of Science & Engineering" },
   // { to: "/faculties/business-economics", label: "Business & Economics" },
   // { to: "/faculties/liberal-arts-social-sciences", label: "Liberal Arts & Social Sciences" },
 ] as const;
@@ -68,7 +73,10 @@ export function Header() {
       <div className="hidden border-b border-border/70 bg-primary text-primary-foreground md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs">
           <div className="flex items-center gap-4">
-            <a href={`tel:${SITE.phone}`} className="inline-flex items-center gap-1.5 opacity-90 hover:opacity-100">
+            <a
+              href={`tel:${SITE.phone}`}
+              className="inline-flex items-center gap-1.5 opacity-90 hover:opacity-100"
+            >
               <Phone className="h-3 w-3" /> {SITE.phone}
             </a>
             <span className="opacity-60">|</span>
@@ -105,15 +113,15 @@ export function Header() {
             onMouseLeave={() => setFacultiesOpen(false)}
             onFocus={() => setFacultiesOpen(true)}
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFacultiesOpen(false);
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                setFacultiesOpen(false);
             }}
           >
             <button
               aria-haspopup="menu"
               aria-expanded={facultiesOpen}
-              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
-                facultiesOpen ? "text-primary after:!w-full" : "text-foreground/80"
-              }`}
+              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${facultiesOpen ? "text-primary after:!w-full" : "text-foreground/80"
+                }`}
             >
               Faculties <ChevronDown className="h-4 w-4" />
             </button>
@@ -122,8 +130,9 @@ export function Header() {
                 <div className="overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-brick animate-in fade-in slide-in-from-top-2 duration-200">
                   {FACULTIES_MENU.map((fMenu) => (
                     <Link
-                      key={fMenu.to}
-                      to={fMenu.to}
+                      key={fMenu.slug}
+                      to="/faculties/$slug"
+                      params={{ slug: fMenu.slug }}
                       onClick={() => setFacultiesOpen(false)}
                       className="block rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground font-medium"
                     >
@@ -142,15 +151,15 @@ export function Header() {
             onMouseLeave={() => setDepartmentsOpen(false)}
             onFocus={() => setDepartmentsOpen(true)}
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDepartmentsOpen(false);
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                setDepartmentsOpen(false);
             }}
           >
             <button
               aria-haspopup="menu"
               aria-expanded={departmentsOpen}
-              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
-                departmentsOpen ? "text-primary after:!w-full" : "text-foreground/80"
-              }`}
+              className={`relative inline-flex items-center gap-1 py-2 text-md font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${departmentsOpen ? "text-primary after:!w-full" : "text-foreground/80"
+                }`}
             >
               Departments <ChevronDown className="h-4 w-4" />
             </button>
@@ -164,7 +173,9 @@ export function Header() {
                       onClick={() => setDepartmentsOpen(false)}
                       className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground font-medium"
                     >
-                      <span className="inline-flex h-6 w-10 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">{dMenu.short}</span>
+                      <span className="inline-flex h-6 w-10 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">
+                        {dMenu.short}
+                      </span>
                       {dMenu.label}
                     </Link>
                   ))}
@@ -180,10 +191,15 @@ export function Header() {
             onMouseLeave={() => setLoginOpen(false)}
             onFocus={() => setLoginOpen(true)}
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setLoginOpen(false);
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                setLoginOpen(false);
             }}
           >
-            <button aria-haspopup="menu" aria-expanded={loginOpen} className={`relative inline-flex items-center gap-1 py-2 text-sm font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${loginOpen ? "text-primary after:!w-full" : "text-foreground/80"}`}>
+            <button
+              aria-haspopup="menu"
+              aria-expanded={loginOpen}
+              className={`relative inline-flex items-center gap-1 py-2 text-sm font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${loginOpen ? "text-primary after:!w-full" : "text-foreground/80"}`}
+            >
               <LogIn className="h-4 w-4" /> Login <ChevronDown className="h-4 w-4" />
             </button>
             {loginOpen && (
@@ -214,7 +230,8 @@ export function Header() {
           <div
             className="relative"
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSearchOpen(false);
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                setSearchOpen(false);
             }}
           >
             <button
@@ -249,7 +266,7 @@ export function Header() {
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <Link
-            to="/admission"
+            to="#"
             className="hidden rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-brick transition-colors hover:bg-primary-deep md:inline-flex"
           >
             Apply Now
@@ -278,18 +295,23 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Faculties</p>
+            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Faculties
+            </p>
             {FACULTIES_MENU.map((item) => (
               <Link
-                key={item.to}
-                to={item.to}
+                key={item.slug}
+                to="/faculties/$slug"
+                params={{ slug: item.slug }}
                 onClick={() => setMobile(false)}
                 className="block rounded-md px-3 py-2 text-sm font-medium text-foreground/85 hover:bg-accent"
               >
                 {item.label}
               </Link>
             ))}
-            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Departments</p>
+            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Departments
+            </p>
             {DEPARTMENTS_MENU.map((item) => (
               <Link
                 key={item.to}
@@ -297,11 +319,15 @@ export function Header() {
                 onClick={() => setMobile(false)}
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/85 hover:bg-accent"
               >
-                <span className="inline-flex h-5 w-9 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">{item.short}</span>
+                <span className="inline-flex h-5 w-9 shrink-0 items-center justify-center rounded bg-primary/10 text-[9px] font-black uppercase tracking-wider text-primary">
+                  {item.short}
+                </span>
                 {item.label}
               </Link>
             ))}
-            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Login</p>
+            <p className="px-3 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Login
+            </p>
             <div className="grid grid-cols-3 gap-2">
               {LOGINS.map((l) => (
                 <Link
@@ -316,7 +342,7 @@ export function Header() {
               ))}
             </div>
             <Link
-              to="/admission"
+              to="#"
               onClick={() => setMobile(false)}
               className="mt-2 block rounded-md bg-primary px-4 py-2 text-center text-sm font-semibold text-primary-foreground"
             >

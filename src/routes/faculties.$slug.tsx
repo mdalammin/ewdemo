@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { DEPARTMENTS } from "@/lib/site-data";
+import { cn } from "@/lib/utils";
 import {
   ChevronRight,
   ChevronLeft,
@@ -19,7 +20,27 @@ import {
   HardHat,
   BarChart3,
   BookMarked,
+  Pin,
+  MegaphoneIcon,
+  CalendarDays,
 } from "lucide-react";
+
+import face1 from "@/assets/faculty/dr_maheen_islam.jpg";
+import face2 from "@/assets/faculty/dr_md_naimul.jpg";
+import face3 from "@/assets/faculty/khairul_alam.jpg";
+import face4 from "@/assets/faculty/dr_anindita_paul.jpg";
+import face5 from "@/assets/faculty/cse_dean.jpg";
+import { useState } from "react";
+
+import deptCse from "@/assets/dept/cse.jpg";
+import deptEee from "@/assets/dept/eee.jpg";
+import deptCivil from "@/assets/dept/civil.jpg";
+import deptBba from "@/assets/dept/bba.jpg";
+import deptEco from "@/assets/dept/eco.jpg";
+import deptEnglish from "@/assets/dept/english.jpg";
+
+// Swiper types only — real import happens client-side in NewsSlider
+type SwiperType = import('swiper').Swiper;
 
 interface Dean {
   name: string;
@@ -72,6 +93,7 @@ interface FacultyData {
   summary: string;
   dean: Dean;
   notices: Notice[];
+  events: Notice[];
   chairpersons: Chairperson[];
   alumni: FacultyAlumni[];
   programs: Program[];
@@ -103,8 +125,7 @@ const FACULTIES_DATA: Record<string, FacultyData> = {
       designation: "Dean & Professor",
       dept: "Department of Computer Science & Engineering",
       email: "dean.fse@ewu.edu.bd",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+      image: face5,
       info: "PhD, Tokyo University | Fellow, Bangladesh Academy of Sciences | 22+ Years in Academic Leadership",
       message:
         "Welcome to the Faculty of Sciences & Engineering at East West University. We live in an era of rapid technological disruption, where science and engineering drive human progress. Our faculty is dedicated to fostering a culture of curiosity, analytical thinking, and ethical responsibility. With modern lab facilities, state-of-the-art computational infrastructure, and a world-class faculty body, we ensure our graduates are equipped to lead.",
@@ -190,50 +211,70 @@ const FACULTIES_DATA: Record<string, FacultyData> = {
         title: "IEEE Student Branch Robotics Workshop: Registration Now Open",
       },
     ],
+    events: [
+      {
+        date: "2026-06-28",
+        tag: "Seminar",
+        title: "International Seminar on Applied Mathematics and Computation",
+      },
+      {
+        date: "2026-07-04",
+        tag: "Workshop",
+        title: "Annual Science Fair — Open Submissions for Undergraduate Students",
+      },
+      {
+        date: "2026-07-10",
+        tag: "Workshop",
+        title: "Research Methodology Workshop for Postgraduate Scholars",
+      },
+      {
+        date: "2026-07-15",
+        tag: "Event",
+        title: "Faculty Alumni Meet 2026 — Networking and Career Mentorship",
+      },
+    ],
     chairpersons: [
       {
-        name: "Dr. Tasnia Rahman",
-        designation: "Professor & Chair",
+        name: "Dr. Maheen Islam",
+        designation:
+          "Chairperson , Associate Professor, Department of Computer Science & Engineering",
         deptName: "Computer Science & Engineering",
-        image:
-          "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop",
+        image: face1,
         education: ["PhD, University of Toronto", "MSc, BUET", "BSc, BUET"],
         interests: ["Machine Learning", "Bangla NLP", "Healthcare AI"],
-        bio: "Recipient of the BAS Gold Medal 2024. Dr. Tasnia leads the Low-Resource Bangla NLP lab and is an advisor to several governmental AI initiatives.",
+        bio: "Recipient of the BAS Gold Medal 2024. Dr. Maheen leads the Low-Resource Bangla NLP lab and is an advisor to several governmental AI initiatives.",
       },
       {
-        name: "Dr. Kazi Mahbubul Alam",
-        designation: "Professor & Chair",
-        deptName: "Electrical & Electronic Engineering",
-        image:
-          "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
-        education: ["PhD, KTH Stockholm", "MSc, BUET", "BSc, BUET"],
-        interests: ["Smart Grids", "Renewable Energy Systems", "Power Electronics"],
-        bio: "Dr. Alam is a leading voice in green energy transition. He has published over 50 peer-reviewed papers and serves as a power grid consultant.",
-      },
-      {
-        name: "Dr. Farida Khan",
-        designation: "Associate Professor & Chair",
-        deptName: "Pharmacy",
-        image:
-          "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
-        education: ["PhD, University of Nottingham", "M.Pharm, Dhaka University"],
-        interests: ["Targeted Drug Delivery", "Clinical Pharmacokinetics", "Nanomedicine"],
-        bio: "Dr. Khan's research targets nanotechnology in cancer therapeutics. She has multiple publications in leading global pharmacology journals.",
-      },
-      {
-        name: "Dr. Imran Hossain",
-        designation: "Associate Professor & Chair",
+        name: "Dr. Md. Naimul Haque",
+        designation: "Chairperson ,  Associate Professor, Department of Civil Engineering",
         deptName: "Civil Engineering",
-        image:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop",
+        image: face2,
         education: ["PhD, NTU Singapore", "MSc, BUET", "BSc, BUET"],
         interests: [
           "Seismic Design",
           "Sustainable Concrete Materials",
           "Structural Health Monitoring",
         ],
-        bio: "Dr. Hossain plays a critical role in local structural guidelines. He specializes in earthquake resilience for high-rise buildings.",
+        bio: "Dr. Haque plays a critical role in local structural guidelines. He specializes in earthquake resilience for high-rise buildings.",
+      },
+      {
+        name: "Dr. Anindita Paul",
+        designation: "Chairperson ,  Professor, Department of Mathematical and Physical Sciences",
+        deptName: "Pharmacy",
+        image: face4,
+        education: ["PhD, University of Nottingham", "M.Pharm, Dhaka University"],
+        interests: ["Targeted Drug Delivery", "Clinical Pharmacokinetics", "Nanomedicine"],
+        bio: "Dr. Paul's research targets nanotechnology in cancer therapeutics. She has multiple publications in leading global pharmacology journals.",
+      },
+      {
+        name: "Khairul Alam",
+        designation:
+          "Chairperson ,  Professor, Department of Electrical and Electronic Engineering",
+        deptName: "Electrical & Electronic Engineering ",
+        image: face3,
+        education: ["PhD, KTH Stockholm", "MSc, BUET", "BSc, BUET"],
+        interests: ["Smart Grids", "Renewable Energy Systems", "Power Electronics"],
+        bio: "Khairul Alam is a leading voice in green energy transition. He has published over 50 peer-reviewed papers and serves as a power grid consultant.",
       },
     ],
     alumni: [
@@ -298,6 +339,23 @@ const FACULTIES_DATA: Record<string, FacultyData> = {
         date: "2026-06-10",
         tag: "Event",
         title: "Annual Business Case Competition: Registration Deadline Extended",
+      },
+    ],
+    events: [
+      {
+        date: "2026-06-30",
+        tag: "Workshop",
+        title: "Entrepreneurship Bootcamp: From Ideation to Pitch Deck",
+      },
+      {
+        date: "2026-07-08",
+        tag: "Seminar",
+        title: "South Asian Finance Forum — Panel on ESG Investing",
+      },
+      {
+        date: "2026-07-14",
+        tag: "Event",
+        title: "BBA Alumni Reunion and Career Networking Night 2026",
       },
     ],
     chairpersons: [
@@ -437,6 +495,23 @@ const FACULTIES_DATA: Record<string, FacultyData> = {
         title: "Guest Lecture: Human Rights Frameworks in South Asia",
       },
     ],
+    events: [
+      {
+        date: "2026-07-01",
+        tag: "Seminar",
+        title: "Inter-University Moot Court Competition — Preliminary Rounds",
+      },
+      {
+        date: "2026-07-09",
+        tag: "Workshop",
+        title: "Creative Writing Masterclass with Published Authors",
+      },
+      {
+        date: "2026-07-18",
+        tag: "Event",
+        title: "Annual Law Day Celebration and Guest Lecture Series",
+      },
+    ],
     chairpersons: [
       {
         name: "Nusrat Jahan",
@@ -525,6 +600,159 @@ const FACULTIES_DATA: Record<string, FacultyData> = {
   },
 };
 
+const TAG_STYLES: Record<string, string> = {
+  Exam: "bg-red-50    text-red-800    border border-red-200",
+  Research: "bg-green-50  text-green-800  border border-green-200",
+  Academic: "bg-blue-50   text-blue-800   border border-blue-200",
+  Event: "bg-purple-50 text-purple-800 border border-purple-200",
+  Notice: "bg-gray-50   text-gray-700   border border-gray-200",
+  Seminar: "bg-pink-50   text-pink-800   border border-pink-200",
+  Workshop: "bg-amber-50  text-amber-800  border border-amber-200",
+};
+
+const RECENT_NEWS = [
+  {
+    date: "10 Jun 2025",
+    title: "Huawei and BRACNet Host 'Campus NextGen' to Advance Smart Education in Bangladesh",
+    excerpt: "In a significant stride toward digital transformation in the education sector, BRACNet...",
+    image: deptCse,
+  },
+  {
+    date: "05 May 2025",
+    title: "DNA Day Celebration at GEB EWU",
+    excerpt: "Biotech Club, East West University proudly organized a day-long event titled 'Honouri...",
+    image: deptEee,
+  },
+  {
+    date: "03 Mar 2025",
+    title: "Department of CSE Successfully Organized a Seminar on 'Revolutionizing the Telecom Industry'",
+    excerpt: "The Department of Computer Science and Engineering at East West University recently h...",
+    image: deptCivil,
+  },
+  {
+    date: "09 Dec 2024",
+    title: "Department of Pharmacy Celebrates 'Pharma Carnival 2024': A Grand Celebration",
+    excerpt: "The Department of Pharmacy of East West University has organized a two day long 'Phar...",
+    image: deptBba,
+  },
+  {
+    date: "15 Oct 2024",
+    title: "English Department hosts International Literature Conference",
+    excerpt: "Scholars from around the world gathered to discuss contemporary South Asian literature...",
+    image: deptEnglish,
+  }
+];
+
+// ─── Client-only News Slider ────────────────────────────────────────────────
+// Swiper touches the DOM (window/document) and ships CSS side-effects.
+// Rendering it on the server would crash SSR and produce a blank page.
+// We lazy-import everything inside a useEffect so it only runs in the browser.
+function NewsSlider({
+  news,
+  prevRef,
+  nextRef,
+}: {
+  news: typeof RECENT_NEWS;
+  prevRef: React.RefObject<HTMLButtonElement | null>;
+  nextRef: React.RefObject<HTMLButtonElement | null>;
+}) {
+  const [ready, setReady] = React.useState(false);
+  const [SwiperComp, setSwiperComp] = React.useState<typeof import('swiper/react')['Swiper'] | null>(null);
+  const [SwiperSlideComp, setSwiperSlideComp] = React.useState<typeof import('swiper/react')['SwiperSlide'] | null>(null);
+  const [mods, setMods] = React.useState<[typeof import('swiper/modules')['Navigation'], typeof import('swiper/modules')['Autoplay']] | null>(null);
+
+  React.useEffect(() => {
+    Promise.all([
+      import('swiper/react'),
+      import('swiper/modules'),
+      import('swiper/css' as string),
+      import('swiper/css/navigation' as string),
+    ]).then(([{ Swiper: S, SwiperSlide: SS }, { Navigation, Autoplay }]) => {
+      setSwiperComp(() => S);
+      setSwiperSlideComp(() => SS);
+      setMods([Navigation, Autoplay]);
+      setReady(true);
+    });
+  }, []);
+
+  if (!ready || !SwiperComp || !SwiperSlideComp || !mods) {
+    // Skeleton while Swiper loads
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-8">
+        {news.map((_, i) => (
+          <div key={i} className="h-[420px] rounded-3xl bg-muted/40 animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  const [Navigation, Autoplay] = mods;
+  const Swiper = SwiperComp;
+  const SwiperSlide = SwiperSlideComp;
+
+  return (
+    <Swiper
+      modules={[Navigation, Autoplay]}
+      spaceBetween={24}
+      slidesPerView={1}
+      breakpoints={{
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1280: { slidesPerView: 4 },
+      }}
+      loop={true}
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      navigation={{
+        prevEl: prevRef.current,
+        nextEl: nextRef.current,
+      }}
+      onBeforeInit={(swiper) => {
+        // @ts-ignore
+        swiper.params.navigation.prevEl = prevRef.current;
+        // @ts-ignore
+        swiper.params.navigation.nextEl = nextRef.current;
+      }}
+      className="!pb-10"
+    >
+      {news.map((item, idx) => (
+        <SwiperSlide key={idx} className="!h-auto">
+          <div className="flex flex-col h-[420px] relative rounded-3xl overflow-hidden group shadow-sm hover:shadow-xl transition-shadow duration-500 border border-border/40 cursor-grab active:cursor-grabbing">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 pointer-events-none"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/5 transition-opacity duration-500 group-hover:opacity-90 pointer-events-none" />
+            <div className="absolute top-5 left-5 pointer-events-none z-20">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/90 backdrop-blur-md px-3.5 py-1.5 text-[10px] uppercase tracking-wider font-bold text-primary-foreground border border-primary/20 shadow-sm">
+                <Calendar className="h-3 w-3" />
+                {item.date}
+              </span>
+            </div>
+            <div className="relative mt-auto p-7 z-10 flex flex-col items-start transform transition-transform duration-500 translate-y-8 group-hover:translate-y-0">
+              <h3 className="font-serif text-lg md:text-xl font-bold text-white mb-3 leading-snug line-clamp-2">
+                {item.title}
+              </h3>
+              <p className="text-sm text-white/70 line-clamp-2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 transform translate-y-2 group-hover:translate-y-0">
+                {item.excerpt}
+              </p>
+              <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gold hover:text-white transition-colors cursor-pointer group/btn mb-8">
+                Read Full Story
+                <ArrowRight className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+}
+
 export const Route = createFileRoute("/faculties/$slug")({
   loader: ({ params }) => {
     const data = FACULTIES_DATA[params.slug];
@@ -579,26 +807,44 @@ function FacultyDivisionPage() {
 
   // Dynamically set items visible based on window size
   React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     const handleResize = () => {
-      // Chairpersons visible count
-      if (window.innerWidth < 640) {
-        setChairVisibleCount(1);
-      } else if (window.innerWidth < 1024) {
-        setChairVisibleCount(2);
-      } else {
-        setChairVisibleCount(4);
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (typeof window === 'undefined') return;
+        // Chairpersons visible count
+        if (window.innerWidth < 640) {
+          setChairVisibleCount(1);
+        } else if (window.innerWidth < 1024) {
+          setChairVisibleCount(2);
+        } else {
+          setChairVisibleCount(4);
+        }
 
-      // Alumni visible count (Grid 2 on desktop/tablet, 1 on mobile)
-      if (window.innerWidth < 768) {
-        setAlumniVisibleCount(1);
-      } else {
-        setAlumniVisibleCount(2);
-      }
+        // Alumni visible count (Grid 2 on desktop/tablet, 1 on mobile)
+        if (window.innerWidth < 768) {
+          setAlumniVisibleCount(1);
+        } else {
+          setAlumniVisibleCount(2);
+        }
+      }, 150);
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    if (typeof window !== 'undefined') {
+      // Call immediately without delay for initial render setup
+      if (window.innerWidth < 640) setChairVisibleCount(1);
+      else if (window.innerWidth < 1024) setChairVisibleCount(2);
+      else setChairVisibleCount(4);
+
+      if (window.innerWidth < 768) setAlumniVisibleCount(1);
+      else setAlumniVisibleCount(2);
+
+      window.addEventListener("resize", handleResize);
+    }
+    return () => {
+      if (typeof window !== 'undefined') window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const totalChairpersons = data.chairpersons.length;
@@ -639,6 +885,9 @@ function FacultyDivisionPage() {
     return () => clearInterval(interval);
   }, [alumniHovered, nextAlumni, totalAlumni]);
 
+  const newsPrevRef = React.useRef<HTMLButtonElement>(null);
+  const newsNextRef = React.useRef<HTMLButtonElement>(null);
+
   // Dynamically build repeated arrays for infinite scroll shifting
   const chairToRender: Chairperson[] = [];
   if (totalChairpersons > 0) {
@@ -653,6 +902,8 @@ function FacultyDivisionPage() {
       alumniToRender.push(...data.alumni);
     }
   }
+
+  const [activeTab, setActiveTab] = useState<"notices" | "events">("notices");
 
   return (
     <div className="bg-background text-foreground">
@@ -746,13 +997,13 @@ function FacultyDivisionPage() {
 
           {/* Card */}
           <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-brick">
-            <div className="grid md:grid-cols-[220px_1fr] lg:grid-cols-[340px_1fr]">
+            <div className="grid md:grid-cols-[220px_1fr] lg:grid-cols-[380px_1fr]">
               {/* LEFT — Full bleed photo */}
               <div className="relative min-h-[300px] md:min-h-0 overflow-hidden border-b md:border-b-0 md:border-r border-border">
                 <img
                   src={data.dean.image}
                   alt={data.dean.name}
-                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  className="absolute inset-0 h-full w-full object-cover object-[20%_80%] transition-transform duration-[1000ms] ease-out hover:scale-105"
                 />
                 {/* Bottom gradient caption overlay */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 py-4">
@@ -843,64 +1094,152 @@ function FacultyDivisionPage() {
       </section>
 
       {/* ── 3. NOTICE BOARD SECTION ───────────────────────────── */}
-      <section className="bg-muted/40 border-y border-border py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">
-                Stay Updated
-              </p>
-              <h2 className="font-serif text-3xl font-bold tracking-tight">Faculty Notice Board</h2>
-              <div className="mt-2 h-1 w-16 bg-gold rounded-full" />
-            </div>
-            <p className="mt-3 md:mt-0 text-sm text-muted-foreground max-w-md">
-              Access the latest circulars, research notifications, academic schedules and exam
-              notices for this faculty.
+      <section className="relative bg-muted/30 border-y border-border py-12 overflow-hidden">
+        {/* Subtle grid background for the whole section */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-5xl px-6">
+          {/* Header */}
+          <div className="flex flex-col items-center text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">
+              Faculty Updates
             </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold tracking-tight">
+              News &amp; Notice Board
+            </h2>
+            <div className="mt-3 h-1 w-16 bg-gold rounded-full" />
           </div>
 
-          <div className="flex flex-col gap-4">
-            {data.notices.map((n, idx) => (
-              <div
-                key={idx}
-                className="group relative flex items-start gap-5 overflow-hidden rounded-2xl border border-border bg-card px-5 py-5 transition-all duration-300 hover:border-primary hover:shadow-brick hover:bg-primary/[0.03] cursor-pointer"
-              >
-                {/* Bold left accent bar */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-border group-hover:bg-primary transition-colors duration-300" />
-
-                {/* Notice Number Badge */}
-                <div className="ml-2 shrink-0 grid h-11 w-11 place-items-center rounded-xl bg-muted border border-border/70 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
-                  <span className="font-serif text-sm font-black text-muted-foreground group-hover:text-primary-foreground transition-colors">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                {/* Notice Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="inline-block rounded-full bg-primary-soft px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-primary-deep group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      {n.tag}
-                    </span>
-                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                      <Calendar className="h-3 w-3" />
-                      {new Date(n.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
-                  </div>
-                  <h3 className="font-serif text-sm font-semibold leading-snug text-foreground group-hover:text-primary transition-colors">
-                    {n.title}
-                  </h3>
-                </div>
-
-                {/* Arrow */}
-                <div className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full border border-border/60 text-muted-foreground group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </div>
+          {/* Board Container */}
+          <div className="relative">
+            {/* Red Pin at the top right corner */}
+            <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 z-20">
+              <div className="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+                <Pin className="h-10 w-10 md:h-12 md:w-12 text-red-600 fill-red-600 rotate-12 drop-shadow-xl" />
+                <div className="absolute top-2 left-2 h-3 w-3 bg-white/40 rounded-full blur-[1px]" />
               </div>
-            ))}
+            </div>
+
+            {/* Red Pin at the top left corner */}
+            <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 z-20">
+              <div className="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+                <Pin className="h-10 w-10 md:h-12 md:w-12 text-red-600 fill-red-600 -rotate-12 drop-shadow-xl" />
+                <div className="absolute top-2 left-2 h-3 w-3 bg-white/40 rounded-full blur-[1px]" />
+              </div>
+            </div>
+
+            {/* Centered Tabs directly above the paper */}
+            <div className="flex justify-center -mb-px relative z-10">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setActiveTab("notices")}
+                  className={cn(
+                    "flex items-center gap-2 px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 rounded-t-2xl border border-b-0 cursor-pointer",
+                    activeTab === "notices"
+                      ? "bg-card text-primary border-border shadow-[0_-4px_15px_-3px_rgba(0,0,0,0.1)]"
+                      : "bg-muted/80 text-muted-foreground border-transparent hover:bg-muted",
+                  )}
+                >
+                  <MegaphoneIcon className="h-4.5 w-4.5" />
+                  Notices
+                  <span
+                    className={cn(
+                      "text-[10px] px-2 py-0.5 rounded-full ml-1",
+                      activeTab === "notices"
+                        ? "bg-primary/10 text-primary"
+                        : "bg-border text-muted-foreground",
+                    )}
+                  >
+                    {data.notices.length}
+                  </span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("events")}
+                  className={cn(
+                    "flex items-center gap-2 px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 rounded-t-2xl border border-b-0 cursor-pointer",
+                    activeTab === "events"
+                      ? "bg-card text-primary border-border shadow-[0_-4px_15px_-3px_rgba(0,0,0,0.1)]"
+                      : "bg-muted/80 text-muted-foreground border-transparent hover:bg-muted",
+                  )}
+                >
+                  <CalendarDays className="h-4.5 w-4.5" />
+                  Events
+                  <span
+                    className={cn(
+                      "text-[10px] px-2 py-0.5 rounded-full ml-1",
+                      activeTab === "events"
+                        ? "bg-primary/10 text-primary"
+                        : "bg-border text-muted-foreground",
+                    )}
+                  >
+                    {data.events.length}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Paper / Board Frame */}
+            <div className="relative rounded-3xl rounded-t-none md:rounded-tl-3xl border border-border bg-card shadow-2xl overflow-hidden">
+              <div className="flex flex-col p-4 md:p-8 relative z-10">
+                {(activeTab === "notices" ? data.notices : data.events).map((n, idx) => (
+                  <div
+                    key={idx}
+                    className="group relative flex flex-col md:flex-row items-start md:items-center gap-6 p-2 transition-all duration-300 hover:bg-muted/40 rounded-2xl border border-transparent hover:border-border cursor-pointer mb-1"
+                  >
+                    {/* Date Badge (News style) */}
+                    <div className="shrink-0 flex flex-col items-center justify-center h-[72px] w-[72px] rounded-xl bg-primary/5 border border-primary/10 group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-sm">
+                      <span className="text-xs font-bold uppercase text-primary group-hover:text-primary-foreground/90 leading-none mb-1.5">
+                        {new Date(n.date).toLocaleDateString("en-US", { month: "short" })}
+                      </span>
+                      <span className="text-2xl font-black leading-none">
+                        {new Date(n.date).getDate()}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                        <span
+                          className={cn(
+                            "inline-block rounded-md px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors shadow-sm",
+                            TAG_STYLES[n.tag] ??
+                            "bg-muted text-muted-foreground border border-border",
+                          )}
+                        >
+                          {n.tag}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                          <Calendar className="h-3.5 w-3.5" />
+                          {new Date(n.date).getFullYear()}
+                        </span>
+                      </div>
+                      <h3 className="font-serif text-md md:text-lg font-bold leading-snug text-foreground group-hover:text-primary transition-colors">
+                        {n.title}
+                      </h3>
+                    </div>
+
+                    {/* Arrow Action */}
+                    <div className="hidden md:flex shrink-0 items-center justify-center h-12 w-12 rounded-full bg-background border border-border text-muted-foreground group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
+                      <ArrowRight className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-center p-6 border-t border-border/60 bg-muted/20 relative z-10">
+                <button className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary hover:text-red-700 transition-colors cursor-pointer bg-background border border-border px-8 py-3 rounded-full hover:shadow-md hover:-translate-y-0.5">
+                  View all {activeTab}
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1116,11 +1455,10 @@ function FacultyDivisionPage() {
                     key={idx}
                     onClick={() => setChairIndex(idx)}
                     aria-label={`Go to slide ${idx + 1}`}
-                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${
-                      idx === chairIndex
-                        ? "w-8 bg-primary"
-                        : "w-2.5 bg-border hover:bg-muted-foreground/45"
-                    }`}
+                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${idx === chairIndex
+                      ? "w-8 bg-primary"
+                      : "w-2.5 bg-border hover:bg-muted-foreground/45"
+                      }`}
                   />
                 ))}
               </div>
@@ -1150,19 +1488,17 @@ function FacultyDivisionPage() {
                 <button
                   key={level}
                   onClick={() => setStudyLevelTab(level)}
-                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                    studyLevelTab === level
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  }`}
+                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${studyLevelTab === level
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    }`}
                 >
                   <span>{level}</span>
                   <span
-                    className={`text-[10px] font-bold mt-0.5 ${
-                      studyLevelTab === level
-                        ? "text-primary-foreground/70"
-                        : "text-muted-foreground/60"
-                    }`}
+                    className={`text-[10px] font-bold mt-0.5 ${studyLevelTab === level
+                      ? "text-primary-foreground/70"
+                      : "text-muted-foreground/60"
+                      }`}
                   >
                     {counts} Program{counts !== 1 ? "s" : ""}
                   </span>
@@ -1227,6 +1563,82 @@ function FacultyDivisionPage() {
             <p className="text-sm font-medium">No programs listed for this level yet.</p>
           </div>
         )}
+      </section>
+
+      {/* ── 7. SUBSCRIBE SECTION ────────────────────────────────── */}
+      <section className="relative overflow-hidden border-y border-border py-24 bg-primary text-primary-foreground text-center">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={deptCse}
+            alt="Subscribe Background"
+            className="h-full w-full object-cover object-center opacity-80"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/95 mix-blend-multiply" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-2xl px-6">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-8">
+            Don't Miss Awesome Story From Our Alumni
+          </h2>
+          <form className="mx-auto flex flex-col items-center gap-4 max-w-sm" onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="email"
+              placeholder="Your E-mail Address"
+              className="w-full bg-transparent border-b border-primary-foreground/40 pb-2 text-center text-primary-foreground placeholder:text-primary-foreground/60 focus:outline-none focus:border-gold transition-colors"
+              required
+            />
+            <button
+              type="submit"
+              className="mt-4 bg-white/70 hover:bg-white/90 text-primary font-bold px-8 py-3 text-xs tracking-widest uppercase transition-colors cursor-pointer"
+            >
+              SUBSCRIBE
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* ── 8. RECENT NEWS SECTION ──────────────────────────────── */}
+      <section className="py-20 lg:pt-24 lg:pb-0 bg-muted/20 border-t border-border">
+        <div className="mx-auto max-w-[1400px] px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">
+                Latest Insights
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold tracking-tight">
+                Recent News & Updates
+              </h2>
+              <div className="mt-2 h-1 w-20 bg-gold rounded-full" />
+            </div>
+            {/* Slider Navigation Buttons */}
+            <div className="flex gap-2">
+              <button
+                ref={newsPrevRef}
+                aria-label="Previous News"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary cursor-pointer active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                ref={newsNextRef}
+                aria-label="Next News"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary cursor-pointer active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="-mx-4 px-4 pb-8 lg:pb-0">
+            <NewsSlider
+              news={RECENT_NEWS}
+              prevRef={newsPrevRef}
+              nextRef={newsNextRef}
+            />
+          </div>
+        </div>
       </section>
     </div>
   );

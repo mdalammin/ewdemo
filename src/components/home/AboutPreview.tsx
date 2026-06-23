@@ -19,10 +19,10 @@ export function AboutPreview() {
             Press play, or just keep scrolling, the showreel will play itself.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/about" className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary-deep">
+            <Link to="#" className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary-deep">
               Our story <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/clubs" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">
+            <Link to="#" className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">
               Campus life
             </Link>
           </div>

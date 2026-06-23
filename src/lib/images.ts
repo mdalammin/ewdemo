@@ -4,12 +4,15 @@ import face2 from "@/assets/faculty/dr_md_naimul.jpg";
 import face3 from "@/assets/faculty/khairul_alam.jpg";
 import face4 from "@/assets/faculty/dr_anindita_paul.jpg";
 
+import face5 from "@/assets/faculty/cse_dean.jpg";
+
 import alum1 from "@/assets/alumni/fahim.jpg";
 import alum2 from "@/assets/alumni/miraj.jpg";
 import alum3 from "@/assets/alumni/safayat.jpg";
 import alum4 from "@/assets/alumni/sajjad.jpg";
 
 import facLibrary from "@/assets/library/lib2.jpg";
+const facClassroom = "/__l5e/assets-v1/e422edcc-dc87-4149-b94a-e00674d6760f/fac-classroom.jpg";
 import facComputer from "@/assets/fac-computer.jpg";
 import facResearch from "@/assets/fac-research.jpg";
 import facAuditorium from "@/assets/fac-auditorium.jpg";
@@ -50,11 +53,13 @@ export const IMG: Record<string, string> = {
   "face-2": face2,
   "face-3": face3,
   "face-4": face4,
+  "face-5": face5,
   "alum-1": alum1,
   "alum-2": alum2,
   "alum-3": alum3,
   "alum-4": alum4,
   "fac-library": facLibrary,
+  "fac-classroom": facClassroom,
   "fac-computer": facComputer,
   "fac-research": facResearch,
   "fac-auditorium": facAuditorium,

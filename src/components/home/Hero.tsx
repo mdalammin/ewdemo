@@ -93,7 +93,7 @@ export function Hero() {
 
         <div className="hero-text-item flex flex-wrap items-center gap-3 pt-2">
           <Link
-            to="/admission"
+            to="#"
             className="inline-flex items-center gap-2 rounded-md bg-gold px-5 py-3 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.02]"
           >
             Apply for Admission

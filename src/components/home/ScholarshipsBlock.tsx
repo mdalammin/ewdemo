@@ -21,7 +21,7 @@ export function ScholarshipsBlock() {
           <p className="mt-4 text-muted-foreground">
             Over <strong className="text-foreground">42% of EWU students</strong> receive some form of financial assistance, merit, need-based, sports or quota waivers.
           </p>
-          <Link to="/admission" className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary-deep">
+          <Link to="#" className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary-deep">
             Scholarship details <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -465,7 +465,7 @@ export const ALUMNI = [
   {
     img: "alum-1",
     name: "MD Fahim",
-    batch: "BBA 2018",
+    batch: "CSE 2018",
     role: "Full Stack Developer, GETSVIEW",
     body: "Built a fintech serving 200,000 users across Bangladesh.",
     quote:
@@ -474,7 +474,7 @@ export const ALUMNI = [
   {
     img: "alum-2",
     name: "Md. Shafayat Hossain",
-    batch: "BBA 2016",
+    batch: "CSE 2016",
     role: "Software Engineer at GETSVIEW",
     body: "Leads the retail digital banking transformation at one of Bangladesh's largest banks.",
     quote:
@@ -526,6 +526,11 @@ export const FAQS = [
     a: "Use the Faculty Directory, each profile lists office hours, email and research interests.",
   },
 ];
+
+export const cse_dean = {
+  id: "cse-dean",
+  img: "face-5",
+};
 
 export function deptBySlug(slug: string) {
   return DEPARTMENTS.find((d) => d.slug === slug);

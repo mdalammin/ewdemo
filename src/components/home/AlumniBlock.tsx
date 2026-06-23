@@ -36,7 +36,7 @@ export function AlumniBlock() {
         ))}
       </div>
       <div className="mt-8 text-center">
-        <Link to="/about" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+        <Link to="#" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
           More alumni stories <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>

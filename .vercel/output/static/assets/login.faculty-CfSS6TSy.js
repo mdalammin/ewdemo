@@ -1,0 +1,1 @@
+import{s as e}from"./link-ch1AV1iJ.js";import{t}from"./LoginForm-CMjvkHwB.js";var n=e(),r=()=>(0,n.jsx)(t,{portal:`Faculty`,description:`Access courses, gradebook and research tools.`,idLabel:`Faculty ID`});export{r as component};

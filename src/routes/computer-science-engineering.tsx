@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import cseHeroImage from "@/assets/dept/cse.jpg";
 import {
   ChevronRight,
   ChevronLeft,
@@ -19,12 +20,14 @@ import {
   Brain,
   Code,
   Search,
+  Newspaper,
+  Calendar,
 } from "lucide-react";
 import { CommunitySlider } from "@/components/site/CommunitySlider";
 import { FACULTY } from "@/lib/site-data";
 import { img } from "@/lib/images";
 
-/* ── Static CSE page data ──────────────────────────────────── */
+/* â"€â"€ Static CSE page data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop";
 
@@ -37,14 +40,14 @@ const CHAIRPERSON = {
   image:
     "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
   message:
-    "As Chairperson, it is my pleasure to welcome you to one of the university's oldest, largest, and most dynamic academic communities — the Department of Computer Science and Engineering. Home to more than 4,000 undergraduate and graduate students and supported by a strong team of full-time faculty alongside dedicated technical and administrative staff, the department has developed into a vibrant center for learning, inquiry, and innovation. We are committed to excellence in teaching, research, and service.",
+    "As Chairperson, it is my pleasure to welcome you to one of the university's oldest, largest, and most dynamic academic communities - the Department of Computer Science and Engineering. Home to more than 4,000 undergraduate and graduate students and supported by a strong team of full-time faculty alongside dedicated technical and administrative staff, the department has developed into a vibrant center for learning, inquiry, and innovation. We are committed to excellence in teaching, research, and service.",
 };
 
 const NOTICES = [
   {
     date: "2026-06-25",
     tag: "Exam",
-    title: "Makeup Midterm Examination Schedule – Spring 2026 Semester",
+    title: "Makeup Midterm Examination Schedule - Spring 2026 Semester",
   },
   {
     date: "2026-06-22",
@@ -86,7 +89,7 @@ const COURSESDropdown: Record<string, string[]> = {
   Architecture: ["ARC101", "ARC201"],
 };
 
-// Fake events — replace with your real data
+// Fake events - replace with your real data
 const EVENTS = [
   { date: "2025-07-10", tag: "Event", title: "Annual Tech Fest 2025" },
   { date: "2025-07-18", tag: "Seminar", title: "Career Development Workshop" },
@@ -193,6 +196,143 @@ const STATS = [
   { icon: Award, value: "A+", label: "UGC Rating" },
 ];
 
+const ADMISSION_PROGRAMS = ["Undergraduate", "Graduate"] as const;
+
+const LATEST_NEWS = [
+  {
+    date: "24 May 2025",
+    title: "East West University Delegation Visits Huawei Bangladesh to Explore Academic and Industry Collaboration",
+    excerpt: "Faculty members and students from East West University (EWU) visited Huawei Technologies (Bangladesh) Ltd. on Thursday,...",
+    image: img("club-computer"),
+  },
+  {
+    date: "29 Apr 2025",
+    title: "CSE Department Successfully Completes 60-Hour IEEE FE Exam Preparation Training Program",
+    excerpt: "The Department of Computer Science and Engineering (CSE) at East West University has successfully completed a 60-hour in...",
+    image: img("fac-computer"),
+  },
+  {
+    date: "23 Apr 2025",
+    title: "Seminar on Artificial Intelligence and Cybersecurity held at East West University",
+    excerpt: "The Department of Computer Science and Engineering (CSE) at East West University (EWU) hosted a seminar titled \"AI and C...",
+    image: img("fac-auditorium"),
+  },
+];
+
+function LatestNewsSlider({ news }: { news: typeof LATEST_NEWS }) {
+  const [ready, setReady] = React.useState(false);
+  const [SwiperComp, setSwiperComp] = React.useState<typeof import("swiper/react")["Swiper"] | null>(null);
+  const [SwiperSlideComp, setSwiperSlideComp] = React.useState<
+    typeof import("swiper/react")["SwiperSlide"] | null
+  >(null);
+  const [mods, setMods] = React.useState<
+    [typeof import("swiper/modules")["Autoplay"], typeof import("swiper/modules")["Navigation"]] | null
+  >(null);
+
+  React.useEffect(() => {
+    Promise.all([
+      import("swiper/react"),
+      import("swiper/modules"),
+      import("swiper/css" as string),
+    ]).then(([{ Swiper: S, SwiperSlide: SS }, { Autoplay, Navigation }]) => {
+      setSwiperComp(() => S);
+      setSwiperSlideComp(() => SS);
+      setMods([Autoplay, Navigation]);
+      setReady(true);
+    });
+  }, []);
+
+  if (!ready || !SwiperComp || !SwiperSlideComp || !mods) {
+    return (
+      <div className="grid gap-6 md:grid-cols-3">
+        {news.slice(0, 3).map((_, idx) => (
+          <div key={idx} className="h-[380px] bg-muted/40 animate-pulse rounded-2xl shadow-sm" />
+        ))}
+      </div>
+    );
+  }
+
+  const [Autoplay, Navigation] = mods;
+  const Swiper = SwiperComp;
+  const SwiperSlide = SwiperSlideComp;
+
+  return (
+    <div className="relative px-12">
+      {/* Custom prev/next buttons */}
+      <button
+        id="news-prev"
+        aria-label="Previous news"
+        className="news-prev-btn absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-brick hover:bg-primary-deep transition-all cursor-pointer"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        id="news-next"
+        aria-label="Next news"
+        className="news-next-btn absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-brick hover:bg-primary-deep transition-all cursor-pointer"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      <Swiper
+        modules={[Autoplay, Navigation]}
+        navigation={{
+          prevEl: ".news-prev-btn",
+          nextEl: ".news-next-btn",
+        }}
+        spaceBetween={24}
+        slidesPerView={1}
+        breakpoints={{
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+        loop={true}
+        autoplay={{
+          delay: 3800,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        className="!pb-4"
+      >
+        {news.map((item) => (
+          <SwiperSlide key={item.title} className="!h-auto py-2">
+            <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-brick hover:-translate-y-1 hover:border-primary cursor-pointer h-full">
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Date badge */}
+                <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-primary/90 backdrop-blur-sm px-3 py-1">
+                  <Calendar className="h-3 w-3 text-primary-foreground" />
+                  <span className="text-[10px] font-bold text-primary-foreground">{item.date}</span>
+                </div>
+              </div>
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-sm font-bold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-3">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground line-clamp-3 flex-1">
+                  {item.excerpt}
+                </p>
+                <div className="mt-4 pt-4 border-t border-border/60">
+                  <button className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary group-hover:gap-2.5 transition-all cursor-pointer">
+                    Read More <ArrowRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            </article>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
 export const Route = createFileRoute("/computer-science-engineering")({
   head: () => ({
     meta: [
@@ -252,6 +392,9 @@ function CSEPage() {
     return () => clearInterval(t);
   }, [testHovered]);
 
+  /* Admission active tab */
+  const [activeAdmission, setActiveAdmission] = React.useState<"Undergraduate" | "Graduate">("Undergraduate");
+
   /* Courses accordion */
   const [openCourse, setOpenCourse] = React.useState<number | null>(null);
 
@@ -271,7 +414,7 @@ function CSEPage() {
   return (
     <>
       <div className="bg-background text-foreground">
-        {/* ── 1. HERO ─────────────────────────────────────────── */}
+        {/* â"€â"€ 1. HERO â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
         <div className="relative">
           {/* Full-bleed image */}
           <div className="relative h-64 md:h-80 w-full overflow-hidden">
@@ -290,7 +433,11 @@ function CSEPage() {
                     Home
                   </Link>
                   <ChevronRight className="h-3 w-3" />
-                  <Link to="/departments/cse" className="hover:text-white transition-colors">
+                  <Link
+                    to="/departments/$slug"
+                    params={{ slug: "cse" }}
+                    className="hover:text-white transition-colors"
+                  >
                     Departments
                   </Link>
                   <ChevronRight className="h-3 w-3" />
@@ -317,7 +464,7 @@ function CSEPage() {
             </div>
           </div>
 
-          {/* ── Sidebar + Chairperson row */}
+          {/* â"€â"€ Sidebar + Chairperson row */}
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid md:grid-cols-[260px_1fr] lg:grid-cols-[300px_1fr] gap-0 -mt-2">
               {/* Sidebar */}
@@ -381,11 +528,11 @@ function CSEPage() {
           </div>
         </div>
 
-        {/* ── 2. NOTICE BOARD ─────────────────────────────────── */}
+        {/* â"€â"€ 2. NOTICE BOARD â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
         <section className="bg-muted/40 border-y border-border py-16 mt-8">
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-              {/* ── Left: Notice Board ── */}
+              {/* â"€â"€ Left: Notice Board â"€â"€ */}
               <div>
                 <div className="flex items-end justify-between mb-6">
                   <div>
@@ -406,11 +553,10 @@ function CSEPage() {
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`px-5 py-2.5 text-sm font-semibold capitalize transition-colors relative cursor-pointer ${
-                        activeTab === tab
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`px-5 py-2.5 text-sm font-semibold capitalize transition-colors relative cursor-pointer ${activeTab === tab
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       {tab === "notice" ? "Notice" : "Events"}
                       {activeTab === tab && (
@@ -451,7 +597,7 @@ function CSEPage() {
                 </div>
               </div>
 
-              {/* ── Right: Search Course ── */}
+              {/* â"€â"€ Right: Search Course â"€â"€ */}
               <div>
                 <div className="mb-6">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-1">
@@ -524,7 +670,7 @@ function CSEPage() {
           </div>
         </section>
 
-        {/* ── 3. FACULTY MEMBERS SLIDER ────────────────────────── */}
+        {/* â"€â"€ 3. FACULTY MEMBERS SLIDER â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
         <section className="py-16 mx-auto max-w-7xl px-6">
           <div className="flex items-end justify-between mb-8">
             <div>
@@ -630,7 +776,79 @@ function CSEPage() {
           </div>
         </section>
 
-        {/* ── 4. RESEARCH AREAS ────────────────────────────────── */}
+        <section className="grid bg-primary text-primary-foreground lg:grid-cols-2">
+          <div className="relative min-h-[300px] overflow-hidden lg:min-h-[400px]">
+            <img
+              src={cseHeroImage}
+              alt="CSE Department"
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/60 to-transparent" />
+          </div>
+          <div className="flex items-center px-6 py-12 lg:px-16">
+            <div className="max-w-xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary-foreground/70 mb-2">Apply Now</p>
+              <h2 className="font-sans text-2xl font-black uppercase leading-tight text-primary-foreground md:text-3xl">
+                ADMISSION IN EAST WEST UNIVERSITY
+              </h2>
+              <div className="mt-3 h-1 w-16 bg-primary-foreground/40 rounded-full" />
+              <p className="mt-5 text-sm font-medium leading-relaxed text-primary-foreground/85 text-pretty">
+                East West University (EWU) is growing steadily upholding the spirits of its oath
+                "Excellence in Education" in order to contribute to the development of the
+                business and technological sectors of Bangladesh. Our programs are updated
+                continuously by an independent academic council consisting of scholars from
+                renowned academic institutions of the country and are based on curricula from
+                North American Universities. Our graduates are much sought after and employed
+                by the corporate sectors of the country.
+              </p>
+              <div className="mt-8 border-b border-primary-foreground/30">
+                <div className="flex gap-8">
+                  {ADMISSION_PROGRAMS.map((program) => (
+                    <button
+                      key={program}
+                      onClick={() => setActiveAdmission(program)}
+                      className={`relative pb-3 text-sm font-bold text-primary-foreground transition-colors cursor-pointer ${activeAdmission === program ? "opacity-100" : "opacity-60 hover:opacity-100"
+                        }`}
+                    >
+                      {program}
+                      {activeAdmission === program && (
+                        <span className="absolute bottom-[-1px] left-0 h-1 w-full bg-primary-foreground rounded-full" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <button className="mt-8 inline-flex min-w-36 items-center justify-center gap-2 bg-primary-foreground px-6 py-3 text-[11px] font-black uppercase tracking-wide text-primary transition-all hover:bg-primary-foreground/90 hover:shadow-brick rounded-lg cursor-pointer">
+                {activeAdmission === "Undergraduate" ? "B. Sc. in CSE" : "M. Sc. in CSE"} <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-background py-16 md:py-20 border-y border-border">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-12">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-1">Department Updates</p>
+                  <h2 className="font-sans text-2xl font-black uppercase tracking-wide text-foreground md:text-3xl">
+                    Latest News
+                  </h2>
+                  <div className="mt-2 flex items-center gap-3">
+                    <div className="h-1 w-14 bg-primary rounded-full" />
+                    <Newspaper className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
+                <a href="#" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline">
+                  See All News <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+            <LatestNewsSlider news={LATEST_NEWS} />
+          </div>
+        </section>
+        {/* ——— 4. RESEARCH AREAS ——————————————————————————————————————————— */}
         <section className="bg-muted/40 border-y border-border py-16">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-8">
@@ -661,7 +879,7 @@ function CSEPage() {
           </div>
         </section>
 
-        {/* ── 5. CORE COURSES ──────────────────────────────────── */}
+        {/* â"€â"€ 5. CORE COURSES â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
         <section className="py-16">
           <div className="mx-auto max-w-7xl px-6">
             <div className="flex items-center justify-between mb-8">
@@ -708,7 +926,7 @@ function CSEPage() {
           </div>
         </section>
 
-        {/* ── 6. WHAT STUDENT SAY ──────────────────────────────── */}
+        {/* â"€â"€ 6. WHAT STUDENT SAY â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
         <section
           className="bg-muted/40 border-y border-border py-20"
           onMouseEnter={() => setTestHovered(true)}
