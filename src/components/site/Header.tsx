@@ -67,15 +67,15 @@ export function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {MAIN_NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
-              activeProps={{ className: "text-primary" }}
+              activeProps={{ className: "text-primary after:!w-full" }}
               inactiveProps={{ className: "text-foreground/80" }}
-              className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="relative py-2 text-md font-medium transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               {item.label}
             </Link>
@@ -89,7 +89,7 @@ export function Header() {
               if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOthersOpen(false);
             }}
           >
-            <button aria-haspopup="menu" aria-expanded={othersOpen} className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-accent-foreground">
+            <button aria-haspopup="menu" aria-expanded={othersOpen} className={`relative inline-flex items-center gap-1 py-2 text-sm font-medium transition-colors hover:text-primary after:absolute cursor-pointer after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${othersOpen ? "text-primary after:!w-full" : "text-foreground/80"}`}>
               Others <ChevronDown className="h-4 w-4" />
             </button>
             {othersOpen && (
@@ -119,7 +119,7 @@ export function Header() {
               if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setLoginOpen(false);
             }}
           >
-            <button aria-haspopup="menu" aria-expanded={loginOpen} className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-accent-foreground">
+            <button aria-haspopup="menu" aria-expanded={loginOpen} className={`relative inline-flex items-center gap-1 py-2 text-sm font-medium cursor-pointer transition-colors hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${loginOpen ? "text-primary after:!w-full" : "text-foreground/80"}`}>
               <LogIn className="h-4 w-4" /> Login <ChevronDown className="h-4 w-4" />
             </button>
             {loginOpen && (
@@ -150,7 +150,7 @@ export function Header() {
           <button
             onClick={toggle}
             aria-label="Toggle theme"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-foreground/80 transition-colors hover:border-primary hover:text-primary"
+            className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-border bg-card text-foreground/80 transition-colors hover:border-primary hover:text-primary"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
