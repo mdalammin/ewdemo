@@ -17,11 +17,21 @@ export function FacultySpotlight() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
       <SectionHead eyebrow="Faculty Spotlight" title="Taught by Bangladesh's leading academics." />
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {FACULTY.slice(0, 3).map((f) => (
-          <Link key={f.id} to="/faculty/$id" params={{ id: f.id }} className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary hover:shadow-brick">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <img src={img(f.img)} alt={f.name} className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {FACULTY.slice(0, 4).map((f) => (
+          <Link
+            key={f.id}
+            to="/faculty/$id"
+            params={{ id: f.id }}
+            className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary hover:shadow-brick"
+          >
+            <div className="relative aspect-[3/3] overflow-hidden">
+              <img
+                src={img(f.img)}
+                alt={f.name}
+                className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <h3 className="font-serif text-lg font-bold leading-tight">{f.name}</h3>
@@ -31,7 +41,12 @@ export function FacultySpotlight() {
             <div className="p-5">
               <div className="flex flex-wrap gap-1.5">
                 {f.interests.slice(0, 3).map((i) => (
-                  <span key={i} className="rounded-full bg-primary-soft px-2.5 py-1 text-[11px] font-medium text-primary-deep">{i}</span>
+                  <span
+                    key={i}
+                    className="rounded-full bg-primary-soft px-2.5 py-1 text-[11px] font-medium text-primary-deep"
+                  >
+                    {i}
+                  </span>
                 ))}
               </div>
               <div className="mt-5 grid grid-cols-3 border-t border-border pt-4 text-center">
