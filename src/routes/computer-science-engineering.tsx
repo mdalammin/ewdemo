@@ -350,11 +350,6 @@ export const Route = createFileRoute("/computer-science-engineering")({
 });
 
 function CSEPage() {
-  React.useEffect(() => {
-    document.documentElement.classList.add("brick-light-theme");
-    return () => document.documentElement.classList.remove("brick-light-theme");
-  }, []);
-
   const cseMembers = FACULTY.slice(0, 4);
 
   /* Faculty slider responsive logic (4 desktop, 2 tablet, 1 mobile) */

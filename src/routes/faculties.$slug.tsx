@@ -800,12 +800,6 @@ function FacultyDivisionPage() {
   const { data } = Route.useLoaderData();
   const depts = DEPARTMENTS.filter((d) => d.faculty === data.name);
 
-  React.useEffect(() => {
-    if (data.slug !== "science-engineering") return;
-    document.documentElement.classList.add("brick-light-theme");
-    return () => document.documentElement.classList.remove("brick-light-theme");
-  }, [data.slug]);
-
   // Chairperson Slider state
   const [chairIndex, setChairIndex] = React.useState(0);
   const [chairHovered, setChairHovered] = React.useState(false);

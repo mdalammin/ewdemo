@@ -101,8 +101,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="brick-light-theme" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var root=document.documentElement;root.classList.add('brick-light-theme');var stored=localStorage.getItem('ewu-theme');var dark=stored?stored==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;root.classList.toggle('dark',dark)}catch(e){document.documentElement.classList.add('brick-light-theme')}})();`,
+          }}
+        />
         <HeadContent />
       </head>
       <body>

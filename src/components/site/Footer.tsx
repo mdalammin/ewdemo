@@ -1,14 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Youtube, Twitter, Linkedin, MapPin, Phone, Mail, LifeBuoy, ArrowRight } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  Linkedin,
+  MapPin,
+  Phone,
+  Mail,
+  LifeBuoy,
+  ArrowRight,
+} from "lucide-react";
 import { Logo } from "./Logo";
 import { SITE } from "@/lib/site-data";
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-card text-foreground">
-
       {/* ── Global CTA Banner ─────────────────────────────────────────── */}
-      <div className="relative overflow-hidden bg-[#0c1f3f]">
+      <div className="relative overflow-hidden bg-primary">
         {/* Warm radial glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_50%,rgba(166,75,42,0.22),transparent)]" />
         {/* Subtle grid texture */}
@@ -39,8 +49,8 @@ export function Footer() {
 
           {/* Sub-copy */}
           <p className="mt-4 mx-auto max-w-xl text-sm leading-relaxed text-white/60">
-            Join 30,000+ alumni building Bangladesh's tomorrow.
-            Scholarships, world-class faculty, and a thriving campus await.
+            Join 30,000+ alumni building Bangladesh's tomorrow. Scholarships, world-class faculty,
+            and a thriving campus await.
           </p>
 
           {/* Buttons */}
@@ -63,11 +73,11 @@ export function Footer() {
       {/* ── End CTA Banner ────────────────────────────────────────────── */}
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-4">
-
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-            East West University, a leading private university in Bangladesh, building tomorrow's leaders since 1996.
+            East West University, a leading private university in Bangladesh, building tomorrow's
+            leaders since 1996.
           </p>
           <div className="mt-5 flex items-center gap-2">
             {[
@@ -90,7 +100,9 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">Quick Links</h4>
+          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">
+            Quick Links
+          </h4>
           <ul className="space-y-2 text-sm text-foreground/75">
             {[
               ["#", "About EWU"],
@@ -100,14 +112,18 @@ export function Footer() {
               ["#", "Contact"],
             ].map(([h, l]) => (
               <li key={h}>
-                <Link to={h} className="transition-colors hover:text-primary">{l}</Link>
+                <Link to={h} className="transition-colors hover:text-primary">
+                  {l}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
         <div>
-          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">Academic Calendar</h4>
+          <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">
+            Academic Calendar
+          </h4>
           <ul className="space-y-2 text-sm text-foreground/75">
             <li>Spring Semester · Jan – May</li>
             <li>Summer Semester · Jun – Aug</li>
@@ -123,9 +139,18 @@ export function Footer() {
         <div>
           <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-primary">Contact</h4>
           <ul className="space-y-3 text-sm text-foreground/75">
-            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{SITE.address}</li>
-            <li className="flex gap-2"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{SITE.phone}</li>
-            <li className="flex gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{SITE.email}</li>
+            <li className="flex gap-2">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              {SITE.address}
+            </li>
+            <li className="flex gap-2">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              {SITE.phone}
+            </li>
+            <li className="flex gap-2">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              {SITE.email}
+            </li>
             <li className="mt-2 flex gap-2 rounded-lg border border-primary/20 bg-primary-soft/40 p-3">
               <LifeBuoy className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               <span className="text-foreground/85">

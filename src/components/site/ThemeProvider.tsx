@@ -16,6 +16,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     const root = document.documentElement;
+    root.classList.add("brick-light-theme");
     root.classList.toggle("dark", theme === "dark");
     localStorage.setItem("ewu-theme", theme);
   }, [theme]);

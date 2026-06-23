@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import * as React from "react";
 import { NewsTicker } from "@/components/site/NewsTicker";
 import { PortalsBar } from "@/components/site/PortalsBar";
 import { PartnersFloating } from "@/components/site/PartnersFloating";
@@ -40,11 +39,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  React.useEffect(() => {
-    document.documentElement.classList.add("brick-light-theme");
-    return () => document.documentElement.classList.remove("brick-light-theme");
-  }, []);
-
   return (
     <div>
       <Hero />

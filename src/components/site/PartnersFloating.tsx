@@ -65,11 +65,11 @@ export function PartnersFloating() {
               "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
           }}
         >
-          <div className="flex w-max gap-6 animate-[partners-marquee_45s_linear_infinite] group-hover:[animation-play-state:paused]">
+          <div className="flex w-max py-4 gap-6 animate-[partners-marquee_45s_linear_infinite] group-hover:[animation-play-state:paused]">
             {loop.map((p, i) => (
               <div
                 key={`${p.alt}-${i}`}
-                className="flex h-28 w-48 shrink-0 items-center justify-center rounded-2xl border border-border bg-background px-5 py-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-brick hover:border-primary/30"
+                className="flex h-28 w-48 shrink-0 items-center justify-center rounded-2xl border border-border bg-background px-5 py-4 shadow-sm transition-all hover:scale-105 hover:shadow-lg hover:border-primary/30"
               >
                 <img
                   src={p.src}
