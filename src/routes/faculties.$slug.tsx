@@ -671,9 +671,9 @@ function NewsSlider({
   >(null);
   const [mods, setMods] = React.useState<
     | [
-        (typeof import("swiper/modules"))["Navigation"],
-        (typeof import("swiper/modules"))["Autoplay"],
-      ]
+      (typeof import("swiper/modules"))["Navigation"],
+      (typeof import("swiper/modules"))["Autoplay"],
+    ]
     | null
   >(null);
 
@@ -1092,10 +1092,12 @@ function FacultyDivisionPage() {
 
                 {/* CTA */}
                 <div className="mt-6">
-                  <button className="inline-flex items-center gap-2 rounded-lg border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground cursor-pointer">
-                    <Quote className="h-3.5 w-3.5" />
-                    View Full Message
-                  </button>
+                  <Link to="/facultyprofile">
+                    <button className="inline-flex items-center gap-2 rounded-lg border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground cursor-pointer">
+                      <Quote className="h-3.5 w-3.5" />
+                      View Full Profile
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -1219,7 +1221,7 @@ function FacultyDivisionPage() {
                           className={cn(
                             "inline-block rounded-md px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors shadow-sm",
                             TAG_STYLES[n.tag] ??
-                              "bg-muted text-muted-foreground border border-border",
+                            "bg-muted text-muted-foreground border border-border",
                           )}
                         >
                           {n.tag}
@@ -1465,11 +1467,10 @@ function FacultyDivisionPage() {
                     key={idx}
                     onClick={() => setChairIndex(idx)}
                     aria-label={`Go to slide ${idx + 1}`}
-                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${
-                      idx === chairIndex
-                        ? "w-8 bg-primary"
-                        : "w-2.5 bg-border hover:bg-muted-foreground/45"
-                    }`}
+                    className={`h-2.5 rounded-full transition-all duration-350 cursor-pointer ${idx === chairIndex
+                      ? "w-8 bg-primary"
+                      : "w-2.5 bg-border hover:bg-muted-foreground/45"
+                      }`}
                   />
                 ))}
               </div>
@@ -1499,19 +1500,17 @@ function FacultyDivisionPage() {
                 <button
                   key={level}
                   onClick={() => setStudyLevelTab(level)}
-                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                    studyLevelTab === level
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  }`}
+                  className={`relative flex flex-col items-center px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${studyLevelTab === level
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    }`}
                 >
                   <span>{level}</span>
                   <span
-                    className={`text-[10px] font-bold mt-0.5 ${
-                      studyLevelTab === level
-                        ? "text-primary-foreground/70"
-                        : "text-muted-foreground/60"
-                    }`}
+                    className={`text-[10px] font-bold mt-0.5 ${studyLevelTab === level
+                      ? "text-primary-foreground/70"
+                      : "text-muted-foreground/60"
+                      }`}
                   >
                     {counts} Program{counts !== 1 ? "s" : ""}
                   </span>
