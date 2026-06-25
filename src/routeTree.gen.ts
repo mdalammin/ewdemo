@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResearchRouteImport } from './routes/research'
+import { Route as FacultyprofileRouteImport } from './routes/facultyprofile'
 import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as DepartmentsRouteImport } from './routes/departments'
@@ -30,6 +31,11 @@ import { Route as DepartmentsSlugRouteImport } from './routes/departments.$slug'
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FacultyprofileRoute = FacultyprofileRouteImport.update({
+  id: '/facultyprofile',
+  path: '/facultyprofile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FacultyRoute = FacultyRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
+  '/facultyprofile': typeof FacultyprofileRoute
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/faculties/$slug': typeof FacultiesSlugRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
+  '/facultyprofile': typeof FacultyprofileRoute
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/faculties/$slug': typeof FacultiesSlugRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
+  '/facultyprofile': typeof FacultyprofileRoute
   '/research': typeof ResearchRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/faculties/$slug': typeof FacultiesSlugRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/departments'
     | '/facilities'
     | '/faculty'
+    | '/facultyprofile'
     | '/research'
     | '/departments/$slug'
     | '/faculties/$slug'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/departments'
     | '/facilities'
     | '/faculty'
+    | '/facultyprofile'
     | '/research'
     | '/departments/$slug'
     | '/faculties/$slug'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/departments'
     | '/facilities'
     | '/faculty'
+    | '/facultyprofile'
     | '/research'
     | '/departments/$slug'
     | '/faculties/$slug'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   DepartmentsRoute: typeof DepartmentsRouteWithChildren
   FacilitiesRoute: typeof FacilitiesRoute
   FacultyRoute: typeof FacultyRouteWithChildren
+  FacultyprofileRoute: typeof FacultyprofileRoute
   ResearchRoute: typeof ResearchRoute
   FacultiesSlugRoute: typeof FacultiesSlugRoute
   LoginFacultyRoute: typeof LoginFacultyRoute
@@ -257,6 +270,13 @@ declare module '@tanstack/react-router' {
       path: '/research'
       fullPath: '/research'
       preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/facultyprofile': {
+      id: '/facultyprofile'
+      path: '/facultyprofile'
+      fullPath: '/facultyprofile'
+      preLoaderRoute: typeof FacultyprofileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faculty': {
@@ -408,6 +428,7 @@ const rootRouteChildren: RootRouteChildren = {
   DepartmentsRoute: DepartmentsRouteWithChildren,
   FacilitiesRoute: FacilitiesRoute,
   FacultyRoute: FacultyRouteWithChildren,
+  FacultyprofileRoute: FacultyprofileRoute,
   ResearchRoute: ResearchRoute,
   FacultiesSlugRoute: FacultiesSlugRoute,
   LoginFacultyRoute: LoginFacultyRoute,
