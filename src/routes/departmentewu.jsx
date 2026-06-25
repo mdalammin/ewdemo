@@ -1,6 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Bell, ArrowRight, Search } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 export const Route = createFileRoute('/departmentewu')({
     component: RouteComponent,
@@ -167,6 +173,208 @@ const constellationNodes = [
         )
     }
 ];
+
+function VideoAnimation() {
+    const scrollTrackRef = useRef(null);
+    const videoWrapRef = useRef(null);
+    const videoElRef = useRef(null);
+
+    const [showPlay, setShowPlay] = useState(true);
+
+    const handlePlay = (e) => {
+        e.stopPropagation();
+        const video = videoElRef.current;
+        if (!video) return;
+        video.muted = false;
+        video.play().catch(() => { }); // Ensure it plays even if already playing
+        setShowPlay(false);
+    };
+
+    const handleVideoClick = () => {
+        const video = videoElRef.current;
+        if (!video) return;
+        video.muted = true;
+        setShowPlay(true);
+    };
+
+    const handleVideoEnd = () => {
+        const video = videoElRef.current;
+        if (!video) return;
+        video.muted = true;
+        setShowPlay(true);
+        video.play().catch(() => { }); // Restart muted video for manual looping
+    };
+
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                videoWrapRef.current,
+                { scale: 0.55, borderRadius: "24px" },
+                {
+                    scale: 1,
+                    borderRadius: "0px",
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: scrollTrackRef.current,
+                        pin: true,
+                        start: "top 10%",
+                        end: "+=100%",
+                        scrub: 0.8,
+                    },
+                },
+            );
+
+            // Refresh ScrollTrigger to ensure correct positions
+            ScrollTrigger.refresh();
+        });
+
+        // Only set up the IntersectionObserver after the window has fully loaded
+        // so we don't compete with critical page resources
+        let observer;
+        const setupObserver = () => {
+            observer = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting && videoElRef.current) {
+                        videoElRef.current.play().catch(() => { });
+                        observer.disconnect();
+                    }
+                },
+                { rootMargin: "200px", threshold: 0.1 }
+            );
+            if (videoWrapRef.current) {
+                observer.observe(videoWrapRef.current);
+            }
+        };
+
+        if (document.readyState === "complete") {
+            setupObserver();
+        } else {
+            window.addEventListener("load", setupObserver, { once: true });
+        }
+
+        return () => {
+            ctx.revert();
+            if (observer) observer.disconnect();
+        };
+    }, []);
+
+    return (
+        <div ref={scrollTrackRef} className="hidden md:block relative h-[100vh]">
+            <div className="sticky top-0 h-screen flex items-center justify-center bg-white overflow-hidden">
+                <div
+                    ref={videoWrapRef}
+                    onClick={handleVideoClick}
+                    className="relative w-full h-full bg-transparent overflow-hidden cursor-pointer"
+                    style={{ willChange: "transform, border-radius" }}
+                >
+                    {/* Video with audio — University campus clip with clear audio */}
+                    {/* <video
+                        ref={videoElRef}
+                        muted
+                        onEnded={handleVideoEnd}
+                        playsInline
+                        preload="none"
+                        className="w-full h-full object-cover"
+                    >
+                        <source
+                            src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-on-a-university-campus-4503-large.mp4"
+                            type="video/mp4"
+                        />
+                    </video> */}
+
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/EZGyk4GZ4eU?autoplay=1&mute=1&loop=1&playlist=EZGyk4GZ4eU"
+                        title="University Life"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+
+                    {/* Overlay — dims video when play button is showing */}
+                    <div
+                        className="absolute inset-0 bg-black transition-opacity duration-500"
+                        style={{ opacity: showPlay ? 0.1 : 0, pointerEvents: "none" }}
+                    />
+
+                    {/* Play button — truly centered with flexbox on a full-size absolute div */}
+                    <div
+                        className="absolute inset-0 flex items-center justify-center hidden"
+                        style={{ pointerEvents: showPlay ? "auto" : "none" }}
+                    >
+                        <button
+                            onClick={handlePlay}
+                            aria-label="Play with sound"
+                            className="relative flex items-center justify-center cursor-pointer rounded-full bg-white/20 hover:scale-105 active:scale-95 transition-transform duration-300"
+                            style={{
+                                width: 110,
+                                height: 110,
+                                opacity: showPlay ? 1 : 0,
+                                transform: showPlay ? "scale(1)" : "scale(0.7)",
+                                transition: "opacity 0.4s ease, transform 0.4s ease",
+                                pointerEvents: showPlay ? "auto" : "none",
+                            }}
+                        >
+                            {/* Circular Text */}
+                            <div
+                                className="absolute inset-0 origin-center"
+                                style={{
+                                    animation: "rotate-text 10s linear infinite",
+                                }}
+                            >
+                                <svg viewBox="0 0 100 100" className="w-full h-full p-2">
+                                    <defs>
+                                        <path
+                                            id="circlePath"
+                                            d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
+                                        />
+                                    </defs>
+                                    <text
+                                        className="font-bold fill-gray-600"
+                                        style={{
+                                            fontSize: "9px",
+                                            textTransform: "uppercase",
+                                            letterSpacing: "3px",
+                                        }}
+                                    >
+                                        <textPath href="#circlePath">
+                                            Click To Play • Click To Play •
+                                        </textPath>
+                                    </text>
+                                </svg>
+                            </div>
+
+                            {/* Central Play Icon (Purple Rounded Triangle) */}
+                            <div className="relative z-10 w-12 h-12 bg-white/40 rounded-full flex items-center justify-center">
+                                <svg viewBox="0 0 100 100" className="w-full h-full">
+                                    <path
+                                        d="M35 30C35 27.5 37.5 26 39.5 27.2L68 44.7C70 45.9 70 49.1 68 50.3L39.5 67.8C37.5 69 35 67.5 35 65V30Z"
+                                        fill="#a64b2a"
+                                        stroke="#a64b2a"
+                                        strokeWidth="6"
+                                        strokeLinejoin="round"
+                                        className="drop-shadow-md"
+                                    />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <style>{`
+                @keyframes rotate-text {
+                    from {
+                        transform: rotate(0deg);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+            `}</style>
+        </div>
+    );
+}
 
 function RouteComponent() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -1054,6 +1262,9 @@ function RouteComponent() {
                     </div>
                 </div>
             </section>
+
+            {/* ── Video Scroll Animation ── */}
+            <VideoAnimation />
 
 
             {/* ── 2. NOTICE BOARD ──────────────────────────────────── */}
