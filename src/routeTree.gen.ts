@@ -14,6 +14,7 @@ import { Route as FacultyprofileRouteImport } from './routes/facultyprofile'
 import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as DepartmentsRouteImport } from './routes/departments'
+import { Route as DepartmentewuRouteImport } from './routes/departmentewu'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComputerScienceEngineeringRouteImport } from './routes/computer-science-engineering'
 import { Route as ClubsRouteImport } from './routes/clubs'
@@ -51,6 +52,11 @@ const FacilitiesRoute = FacilitiesRouteImport.update({
 const DepartmentsRoute = DepartmentsRouteImport.update({
   id: '/departments',
   path: '/departments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepartmentewuRoute = DepartmentewuRouteImport.update({
+  id: '/departmentewu',
+  path: '/departmentewu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/clubs': typeof ClubsRoute
   '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
+  '/departmentewu': typeof DepartmentewuRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/clubs': typeof ClubsRoute
   '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
+  '/departmentewu': typeof DepartmentewuRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/clubs': typeof ClubsRoute
   '/computer-science-engineering': typeof ComputerScienceEngineeringRoute
   '/contact': typeof ContactRoute
+  '/departmentewu': typeof DepartmentewuRoute
   '/departments': typeof DepartmentsRouteWithChildren
   '/facilities': typeof FacilitiesRoute
   '/faculty': typeof FacultyRouteWithChildren
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/clubs'
     | '/computer-science-engineering'
     | '/contact'
+    | '/departmentewu'
     | '/departments'
     | '/facilities'
     | '/faculty'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/clubs'
     | '/computer-science-engineering'
     | '/contact'
+    | '/departmentewu'
     | '/departments'
     | '/facilities'
     | '/faculty'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/clubs'
     | '/computer-science-engineering'
     | '/contact'
+    | '/departmentewu'
     | '/departments'
     | '/facilities'
     | '/faculty'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   ClubsRoute: typeof ClubsRoute
   ComputerScienceEngineeringRoute: typeof ComputerScienceEngineeringRoute
   ContactRoute: typeof ContactRoute
+  DepartmentewuRoute: typeof DepartmentewuRoute
   DepartmentsRoute: typeof DepartmentsRouteWithChildren
   FacilitiesRoute: typeof FacilitiesRoute
   FacultyRoute: typeof FacultyRouteWithChildren
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/departments'
       fullPath: '/departments'
       preLoaderRoute: typeof DepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/departmentewu': {
+      id: '/departmentewu'
+      path: '/departmentewu'
+      fullPath: '/departmentewu'
+      preLoaderRoute: typeof DepartmentewuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -425,6 +445,7 @@ const rootRouteChildren: RootRouteChildren = {
   ClubsRoute: ClubsRoute,
   ComputerScienceEngineeringRoute: ComputerScienceEngineeringRoute,
   ContactRoute: ContactRoute,
+  DepartmentewuRoute: DepartmentewuRoute,
   DepartmentsRoute: DepartmentsRouteWithChildren,
   FacilitiesRoute: FacilitiesRoute,
   FacultyRoute: FacultyRouteWithChildren,
