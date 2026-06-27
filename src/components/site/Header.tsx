@@ -22,7 +22,7 @@ const MAIN_NAV = [
   { to: "/", label: "Home" },
   // { to: "/departments", label: "Departments" },
   // { to: "/faculty", label: "Faculty" },
-  { to: "/clubs", label: "Clubs" },
+  // { to: "/clubs", label: "Clubs" },
   // { to: "/about", label: "About" },
   // { to: "/admission", label: "Admission" },
   // { to: "/facilities", label: "Facilities" },
@@ -55,7 +55,7 @@ const FACULTIES_MENU = [
 ] as const;
 
 const DEPARTMENTS_MENU = [
-  { to: "/computer-science-engineering", label: "Computer Science & Engineering", short: "CSE" },
+  { to: "/departmentewu", label: "Computer Science & Engineering", short: "CSE" },
 ] as const;
 
 export function Header() {

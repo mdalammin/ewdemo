@@ -13,6 +13,8 @@ import {
 
 import face5 from "@/assets/faculty/cse_dean.jpg";
 
+import { Player } from '@lottiefiles/react-lottie-player'
+
 export const Route = createFileRoute('/facultyprofile')({
   component: RouteComponent,
 })
@@ -219,56 +221,80 @@ function RouteComponent() {
 
   // hero section - helper
   const [showCvModal, setShowCvModal] = useState(false);
-const [showContactModal, setShowContactModal] = useState(false);
-const [activeTab, setActiveTab] = useState('contact');
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('contact');
 
-const inputStyle = {
-  width: '100%',
-  padding: '12px 14px',
-  marginBottom: 14,
-  border: '1px solid #d2c9c2',
-  borderRadius: 6,
-  outline: 'none',
-  fontSize: 14,
-};
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 14px',
+    marginBottom: 14,
+    border: '1px solid #d2c9c2',
+    borderRadius: 6,
+    outline: 'none',
+    fontSize: 14,
+  };
 
-const submitBtn = {
-  background: '#a64b2a',
-  color: '#fff',
-  border: 'none',
-  borderRadius: 6,
-  padding: '12px 20px',
-  cursor: 'pointer',
-};
+  const submitBtn = {
+    background: '#a64b2a',
+    color: '#fff',
+    border: 'none',
+    borderRadius: 6,
+    padding: '12px 20px',
+    cursor: 'pointer',
+  };
 
-const [cvSections, setCvSections] = useState({
-  publications: true,
-  grants: true,
-  awards: true,
-  teaching: true,
-  supervision: true,
-  media: true,
-});
+  const [cvSections, setCvSections] = useState({
+    publications: true,
+    grants: true,
+    awards: true,
+    teaching: true,
+    supervision: true,
+    media: true,
+  });
 
-const toggleSection = (key) => {
-  setCvSections((prev) => ({
-    ...prev,
-    [key]: !prev[key],
-  }));
-};
+  const toggleSection = (key) => {
+    setCvSections((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
 
-// Media & Speaking - helper
+  // Media & Speaking - helper
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const cardStyle = (isHovered:boolean) => ({
-  background: isHovered ? '#a64b2a' : '#fff',
-  border: `1px solid ${isHovered ? '#a64b2a' : '#d2c9c2'}`,
-  borderRadius: 8,
-  padding: '20px 24px',
-  transition: 'all .3s ease',
-  cursor: 'pointer',
-});
+  const cardStyle = (isHovered: boolean) => ({
+    background: isHovered ? '#a64b2a' : '#fff',
+    border: `1px solid ${isHovered ? '#a64b2a' : '#d2c9c2'}`,
+    borderRadius: 8,
+    padding: '20px 24px',
+    transition: 'all .3s ease',
+    cursor: 'pointer',
+  });
+
+
+  function LottieMap() {
+    const [LottiePlayer, setLottiePlayer] = useState(null)
+
+    useEffect(() => {
+      import('@lottiefiles/react-lottie-player').then((mod) => {
+        setLottiePlayer(() => mod.Player)
+      })
+    }, [])
+
+    if (!LottiePlayer) return null
+
+    return (
+      <LottiePlayer
+        autoplay
+        loop
+        src="/world-map.json"
+        speed={0.3}
+        style={{ width: '100%', height: '100%' }}
+      />
+    )
+  }
+
 
   return (
     <div style={{ fontFamily: 'Poppins, system-ui, sans-serif', background: '#fffaf7', color: '#2c1610', minHeight: '100vh' }}>
@@ -280,17 +306,17 @@ const toggleSection = (key) => {
         {/* Photo */}
         <div style={{ flexShrink: 0 }}>
           <img
-  src={face5}
-  alt="Dr. Elara Vance"
-  style={{
-    width: 460,
-    height: 560,
-    objectFit: 'cover',
-    objectPosition: '15% center', // right side shift
-    borderRadius: 4,
-    display: 'block',
-  }}
-/>
+            src={face5}
+            alt="Dr. Elara Vance"
+            style={{
+              width: 460,
+              height: 560,
+              objectFit: 'cover',
+              objectPosition: '15% center', // right side shift
+              borderRadius: 4,
+              display: 'block',
+            }}
+          />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
             {['ALGORITHMIC BIAS', 'DIGITAL SOVEREIGNTY', 'HUMAN-AI AGENCY', 'DATA ETHICS'].map(tag => (
               <span key={tag} style={{ border: '1px solid #d2c9c2', borderRadius: 4, padding: '4px 10px', fontSize: 11, fontWeight: 500, letterSpacing: '0.06em', color: '#2c1610' }}>{tag}</span>
@@ -322,500 +348,500 @@ const toggleSection = (key) => {
             {/* <button style={{ background: 'transparent', color: '#2c1610', border: '1px solid #d2c9c2', borderRadius: 6, padding: '12px 22px', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}>GENERATE CV</button>
             <button style={{ background: 'transparent', color: '#2c1610', border: '1px solid #d2c9c2', borderRadius: 6, padding: '12px 22px', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}>CONTACT</button> */}
             <button
-  style={{ background: '#2c1610', color: '#fffaf7', border: 'none', borderRadius: 6, padding: '12px 22px', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}
-  onClick={() => setShowCvModal(true)}
->
-  GENERATE CV
-</button>
+              style={{ background: '#2c1610', color: '#fffaf7', border: 'none', borderRadius: 6, padding: '12px 22px', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}
+              onClick={() => setShowCvModal(true)}
+            >
+              GENERATE CV
+            </button>
 
-<button
-  style={{ background: '#2c1610', color: '#fffaf7', border: 'none', borderRadius: 6, padding: '12px 22px', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}
-  onClick={() => setShowContactModal(true)}
->
-  CONTACT
-</button>
+            <button
+              style={{ background: '#2c1610', color: '#fffaf7', border: 'none', borderRadius: 6, padding: '12px 22px', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', cursor: 'pointer' }}
+              onClick={() => setShowContactModal(true)}
+            >
+              CONTACT
+            </button>
           </div>
         </div>
 
-        
+
         {showCvModal && (
-  <>
-    <div
-      onClick={() => setShowCvModal(false)}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,.45)',
-        backdropFilter: 'blur(12px)',
-        zIndex: 999,
-      }}
-    />
-
-    <div
-      style={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '95%',
-        maxWidth: 1400,
-        height: '90vh',
-        background: '#a64b2a',
-        borderRadius: 12,
-        overflow: 'hidden',
-        zIndex: 1000,
-        boxShadow: '0 30px 80px rgba(0,0,0,.35)',
-      }}
-    >
-      <button
-        onClick={() => setShowCvModal(false)}
-        style={{
-          position: 'absolute',
-          top: 24,
-          right: 24,
-          width: 50,
-          height: 50,
-          borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,.15)',
-          background: 'transparent',
-          color: '#341715',
-          fontSize: 20,
-          cursor: 'pointer',
-          zIndex: 10,
-        }}
-      >
-        ×
-      </button>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 600px',
-          height: '100%',
-        }}
-      >
-        {/* LEFT */}
-        <div
-          className="modal-scroll"
-          style={{
-            overflowY: 'auto',
-            padding: '50px 70px',
-          }}
-        >
-          <div
-            style={{
-              color: '#fff',
-              fontSize: 64,
-              fontWeight: 300,
-              lineHeight: 1.1,
-              marginBottom: 8,
-            }}
-          >
-            Generate an{' '}
-            <span
+          <>
+            <div
+              onClick={() => setShowCvModal(false)}
               style={{
-                color: '#341715',
-                fontWeight: '500',
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,.45)',
+                backdropFilter: 'blur(12px)',
+                zIndex: 999,
+              }}
+            />
+
+            <div
+              style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '95%',
+                maxWidth: 1400,
+                height: '90vh',
+                background: '#a64b2a',
+                borderRadius: 12,
+                overflow: 'hidden',
+                zIndex: 1000,
+                boxShadow: '0 30px 80px rgba(0,0,0,.35)',
               }}
             >
-              authoritative
-            </span>{' '}
-            CV
-          </div>
+              <button
+                onClick={() => setShowCvModal(false)}
+                style={{
+                  position: 'absolute',
+                  top: 24,
+                  right: 24,
+                  width: 50,
+                  height: 50,
+                  borderRadius: '50%',
+                  border: '1px solid rgba(255,255,255,.15)',
+                  background: 'transparent',
+                  color: '#341715',
+                  fontSize: 20,
+                  cursor: 'pointer',
+                  zIndex: 10,
+                }}
+              >
+                ×
+              </button>
 
-          <p
-            style={{
-              color: '#c7b8b1',
-              fontSize: 18,
-              maxWidth: 520,
-              lineHeight: 1.8,
-              marginBottom: 8,
-            }}
-          >
-            Select which sections to include. Your CV is
-            compiled from live profile data and exported as a
-            branded PDF.
-          </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 600px',
+                  height: '100%',
+                }}
+              >
+                {/* LEFT */}
+                <div
+                  className="modal-scroll"
+                  style={{
+                    overflowY: 'auto',
+                    padding: '50px 70px',
+                  }}
+                >
+                  <div
+                    style={{
+                      color: '#fff',
+                      fontSize: 64,
+                      fontWeight: 300,
+                      lineHeight: 1.1,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Generate an{' '}
+                    <span
+                      style={{
+                        color: '#341715',
+                        fontWeight: '500',
+                      }}
+                    >
+                      authoritative
+                    </span>{' '}
+                    CV
+                  </div>
 
-          {[
-            ['publications', 'PUBLICATIONS'],
-            ['grants', 'RESEARCH PROJECTS & GRANTS'],
-            ['awards', 'AWARDS & RECOGNITION'],
-            ['teaching', 'TEACHING HISTORY'],
-            ['supervision', 'STUDENT SUPERVISION'],
-            ['media', 'MEDIA & SPEAKING'],
-          ].map(([key, label]) => (
+                  <p
+                    style={{
+                      color: '#c7b8b1',
+                      fontSize: 18,
+                      maxWidth: 520,
+                      lineHeight: 1.8,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Select which sections to include. Your CV is
+                    compiled from live profile data and exported as a
+                    branded PDF.
+                  </p>
+
+                  {[
+                    ['publications', 'PUBLICATIONS'],
+                    ['grants', 'RESEARCH PROJECTS & GRANTS'],
+                    ['awards', 'AWARDS & RECOGNITION'],
+                    ['teaching', 'TEACHING HISTORY'],
+                    ['supervision', 'STUDENT SUPERVISION'],
+                    ['media', 'MEDIA & SPEAKING'],
+                  ].map(([key, label]) => (
+                    <div
+                      key={key}
+                      onClick={() => toggleSection(key)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 16,
+                        padding: '20px 0',
+                        borderBottom:
+                          '1px solid rgba(255,255,255,.08)',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 18,
+                          height: 18,
+                          background: cvSections[key]
+                            ? '#341715'
+                            : 'transparent',
+                          border: '1px solid #341715',
+                          color: '#fff',
+                          fontSize: 11,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {cvSections[key] ? '✓' : ''}
+                      </div>
+
+                      <span
+                        style={{
+                          color: '#fff',
+                          fontSize: 12,
+                          letterSpacing: '.12em',
+                        }}
+                      >
+                        {label}
+                      </span>
+                    </div>
+                  ))}
+
+                  <button
+                    style={{
+                      marginTop: 40,
+                      background: '#341715',
+                      border: 'none',
+                      color: '#fff',
+                      padding: '16px 26px',
+                      borderRadius: 4,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      letterSpacing: '.12em',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    DOWNLOAD PDF
+                  </button>
+
+                  <div
+                    style={{
+                      marginTop: 12,
+                      color: '#341715',
+                      fontSize: 12,
+                    }}
+                  >
+                    {
+                      Object.values(cvSections).filter(Boolean).length
+                    }{' '}
+                    of 6 sections selected
+                  </div>
+                </div>
+
+                {/* RIGHT CV */}
+                <div
+                  className="modal-scroll"
+                  style={{
+                    overflowY: 'auto',
+                    background: '#efe9e5',
+                    padding: 32,
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#faf7f4',
+                      minHeight: '100%',
+                      padding: 36,
+                      boxShadow:
+                        '0 10px 40px rgba(0,0,0,.08)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 40,
+                        height: 4,
+                        background: '#c33224',
+                        marginBottom: 24,
+                      }}
+                    />
+
+                    <h1
+                      style={{
+                        fontSize: 32,
+                        margin: 0,
+                        color: '#341715',
+                      }}
+                    >
+                      ELARA VANCE, Ph.D.
+                    </h1>
+
+                    <div
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: '.18em',
+                        color: '#8f7770',
+                        marginTop: 8,
+                        marginBottom: 24,
+                      }}
+                    >
+                      CURRICULUM VITAE · LIVE PREVIEW
+                    </div>
+
+                    <hr
+                      style={{
+                        border: 'none',
+                        borderTop:
+                          '1px solid rgba(195,50,36,.15)',
+                        marginBottom: 24,
+                      }}
+                    />
+
+                    <h4>PROFILE</h4>
+
+                    <p
+                      style={{
+                        color: '#5f4d46',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      Professor Elara Vance directs the
+                      Human-Centered Systems Lab and researches the
+                      governance of intelligent systems.
+                    </p>
+
+                    {cvSections.publications && (
+                      <>
+                        <h4>PUBLICATIONS</h4>
+                        <ul>
+                          <li>
+                            Toward Algorithmic Equity in Urban
+                            Infrastructure
+                          </li>
+                          <li>
+                            Neural Dynamics of Decision Fatigue in
+                            LLMs
+                          </li>
+                          <li>
+                            Socio-Cognitive Feedbacks in Human-AI
+                            Teams
+                          </li>
+                        </ul>
+                      </>
+                    )}
+
+                    {cvSections.grants && (
+                      <>
+                        <h4>PROJECTS & GRANTS</h4>
+                        <ul>
+                          <li>NSF Responsible AI Initiative</li>
+                          <li>UNESCO Digital Rights Program</li>
+                          <li>Global Ethics Infrastructure Fund</li>
+                        </ul>
+                      </>
+                    )}
+
+                    {cvSections.awards && (
+                      <>
+                        <h4>AWARDS</h4>
+                        <ul>
+                          <li>ACM Distinguished Researcher Award</li>
+                          <li>Royal Society Fellowship</li>
+                        </ul>
+                      </>
+                    )}
+
+                    {cvSections.teaching && (
+                      <>
+                        <h4>TEACHING</h4>
+                        <ul>
+                          <li>Computational Ethics</li>
+                          <li>AI Governance</li>
+                          <li>Human-AI Interaction</li>
+                        </ul>
+                      </>
+                    )}
+
+                    {cvSections.supervision && (
+                      <>
+                        <h4>SUPERVISION</h4>
+                        <p>PhD: 22 · Masters: 38</p>
+                      </>
+                    )}
+
+                    {cvSections.media && (
+                      <>
+                        <h4>MEDIA & SPEAKING</h4>
+                        <ul>
+                          <li>TED AI Summit</li>
+                          <li>World Economic Forum</li>
+                          <li>BBC Future Interview</li>
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+
+
+        {showContactModal && (
+          <>
             <div
-              key={key}
-              onClick={() => toggleSection(key)}
+              onClick={() => setShowContactModal(false)}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                padding: '20px 0',
-                borderBottom:
-                  '1px solid rgba(255,255,255,.08)',
-                cursor: 'pointer',
+                position: 'fixed',
+                inset: 0,
+                background: 'rgba(0,0,0,.35)',
+                backdropFilter: 'blur(8px)',
+                zIndex: 999,
+              }}
+            />
+
+            <div
+              style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '90%',
+                maxWidth: 700,
+                background: '#fffaf7',
+                borderRadius: 12,
+                zIndex: 1000,
+                overflow: 'hidden',
               }}
             >
               <div
                 style={{
-                  width: 18,
-                  height: 18,
-                  background: cvSections[key]
-                    ? '#341715'
-                    : 'transparent',
-                  border: '1px solid #341715',
-                  color: '#fff',
-                  fontSize: 11,
+                  padding: '20px 24px',
+                  borderBottom: '1px solid #d2c9c2',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: 'space-between',
                 }}
               >
-                {cvSections[key] ? '✓' : ''}
+                <h2 style={{ margin: 0 }}>Contact</h2>
+
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  style={{
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    fontSize: 22,
+                  }}
+                >
+                  ×
+                </button>
               </div>
 
-              <span
+              {/* Tabs */}
+              <div
                 style={{
-                  color: '#fff',
-                  fontSize: 12,
-                  letterSpacing: '.12em',
+                  display: 'flex',
+                  borderBottom: '1px solid #d2c9c2',
                 }}
               >
-                {label}
-              </span>
+                <button
+                  onClick={() => setActiveTab('contact')}
+                  style={{
+                    flex: 1,
+                    padding: 16,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background:
+                      activeTab === 'contact'
+                        ? '#a64b2a'
+                        : 'transparent',
+                    color:
+                      activeTab === 'contact'
+                        ? '#fff'
+                        : '#2c1610',
+                  }}
+                >
+                  Contact Form
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('collaboration')}
+                  style={{
+                    flex: 1,
+                    padding: 16,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background:
+                      activeTab === 'collaboration'
+                        ? '#a64b2a'
+                        : 'transparent',
+                    color:
+                      activeTab === 'collaboration'
+                        ? '#fff'
+                        : '#2c1610',
+                  }}
+                >
+                  Research Collaboration
+                </button>
+              </div>
+
+              <div style={{ padding: 24 }}>
+                {activeTab === 'contact' ? (
+                  <form>
+                    <input
+                      placeholder="Full Name"
+                      style={inputStyle}
+                    />
+
+                    <input
+                      placeholder="Email"
+                      style={inputStyle}
+                    />
+
+                    <textarea
+                      placeholder="Message"
+                      rows={5}
+                      style={inputStyle}
+                    />
+
+                    <button style={submitBtn}>
+                      Send Message
+                    </button>
+                  </form>
+                ) : (
+                  <form>
+                    <input
+                      placeholder="Institution"
+                      style={inputStyle}
+                    />
+
+                    <input
+                      placeholder="Research Area"
+                      style={inputStyle}
+                    />
+
+                    <textarea
+                      rows={5}
+                      placeholder="Project Details"
+                      style={inputStyle}
+                    />
+
+                    <button style={submitBtn}>
+                      Submit Proposal
+                    </button>
+                  </form>
+                )}
+              </div>
             </div>
-          ))}
-
-          <button
-            style={{
-              marginTop: 40,
-              background: '#341715',
-              border: 'none',
-              color: '#fff',
-              padding: '16px 26px',
-              borderRadius: 4,
-              fontSize: 12,
-              fontWeight: 600,
-              letterSpacing: '.12em',
-              cursor: 'pointer',
-            }}
-          >
-            DOWNLOAD PDF
-          </button>
-
-          <div
-            style={{
-              marginTop: 12,
-              color: '#341715',
-              fontSize: 12,
-            }}
-          >
-            {
-              Object.values(cvSections).filter(Boolean).length
-            }{' '}
-            of 6 sections selected
-          </div>
-        </div>
-
-        {/* RIGHT CV */}
-        <div
-          className="modal-scroll"
-          style={{
-            overflowY: 'auto',
-            background: '#efe9e5',
-            padding: 32,
-          }}
-        >
-          <div
-            style={{
-              background: '#faf7f4',
-              minHeight: '100%',
-              padding: 36,
-              boxShadow:
-                '0 10px 40px rgba(0,0,0,.08)',
-            }}
-          >
-            <div
-              style={{
-                width: 40,
-                height: 4,
-                background: '#c33224',
-                marginBottom: 24,
-              }}
-            />
-
-            <h1
-              style={{
-                fontSize: 32,
-                margin: 0,
-                color: '#341715',
-              }}
-            >
-              ELARA VANCE, Ph.D.
-            </h1>
-
-            <div
-              style={{
-                fontSize: 11,
-                letterSpacing: '.18em',
-                color: '#8f7770',
-                marginTop: 8,
-                marginBottom: 24,
-              }}
-            >
-              CURRICULUM VITAE · LIVE PREVIEW
-            </div>
-
-            <hr
-              style={{
-                border: 'none',
-                borderTop:
-                  '1px solid rgba(195,50,36,.15)',
-                marginBottom: 24,
-              }}
-            />
-
-            <h4>PROFILE</h4>
-
-            <p
-              style={{
-                color: '#5f4d46',
-                lineHeight: 1.7,
-              }}
-            >
-              Professor Elara Vance directs the
-              Human-Centered Systems Lab and researches the
-              governance of intelligent systems.
-            </p>
-
-            {cvSections.publications && (
-              <>
-                <h4>PUBLICATIONS</h4>
-                <ul>
-                  <li>
-                    Toward Algorithmic Equity in Urban
-                    Infrastructure
-                  </li>
-                  <li>
-                    Neural Dynamics of Decision Fatigue in
-                    LLMs
-                  </li>
-                  <li>
-                    Socio-Cognitive Feedbacks in Human-AI
-                    Teams
-                  </li>
-                </ul>
-              </>
-            )}
-
-            {cvSections.grants && (
-              <>
-                <h4>PROJECTS & GRANTS</h4>
-                <ul>
-                  <li>NSF Responsible AI Initiative</li>
-                  <li>UNESCO Digital Rights Program</li>
-                  <li>Global Ethics Infrastructure Fund</li>
-                </ul>
-              </>
-            )}
-
-            {cvSections.awards && (
-              <>
-                <h4>AWARDS</h4>
-                <ul>
-                  <li>ACM Distinguished Researcher Award</li>
-                  <li>Royal Society Fellowship</li>
-                </ul>
-              </>
-            )}
-
-            {cvSections.teaching && (
-              <>
-                <h4>TEACHING</h4>
-                <ul>
-                  <li>Computational Ethics</li>
-                  <li>AI Governance</li>
-                  <li>Human-AI Interaction</li>
-                </ul>
-              </>
-            )}
-
-            {cvSections.supervision && (
-              <>
-                <h4>SUPERVISION</h4>
-                <p>PhD: 22 · Masters: 38</p>
-              </>
-            )}
-
-            {cvSections.media && (
-              <>
-                <h4>MEDIA & SPEAKING</h4>
-                <ul>
-                  <li>TED AI Summit</li>
-                  <li>World Economic Forum</li>
-                  <li>BBC Future Interview</li>
-                </ul>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  </>
-)}
-
-
-
-{showContactModal && (
-  <>
-    <div
-      onClick={() => setShowContactModal(false)}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,.35)',
-        backdropFilter: 'blur(8px)',
-        zIndex: 999,
-      }}
-    />
-
-    <div
-      style={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '90%',
-        maxWidth: 700,
-        background: '#fffaf7',
-        borderRadius: 12,
-        zIndex: 1000,
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #d2c9c2',
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <h2 style={{ margin: 0 }}>Contact</h2>
-
-        <button
-          onClick={() => setShowContactModal(false)}
-          style={{
-            border: 'none',
-            background: 'transparent',
-            cursor: 'pointer',
-            fontSize: 22,
-          }}
-        >
-          ×
-        </button>
-      </div>
-
-      {/* Tabs */}
-      <div
-        style={{
-          display: 'flex',
-          borderBottom: '1px solid #d2c9c2',
-        }}
-      >
-        <button
-          onClick={() => setActiveTab('contact')}
-          style={{
-            flex: 1,
-            padding: 16,
-            border: 'none',
-            cursor: 'pointer',
-            background:
-              activeTab === 'contact'
-                ? '#a64b2a'
-                : 'transparent',
-            color:
-              activeTab === 'contact'
-                ? '#fff'
-                : '#2c1610',
-          }}
-        >
-          Contact Form
-        </button>
-
-        <button
-          onClick={() => setActiveTab('collaboration')}
-          style={{
-            flex: 1,
-            padding: 16,
-            border: 'none',
-            cursor: 'pointer',
-            background:
-              activeTab === 'collaboration'
-                ? '#a64b2a'
-                : 'transparent',
-            color:
-              activeTab === 'collaboration'
-                ? '#fff'
-                : '#2c1610',
-          }}
-        >
-          Research Collaboration
-        </button>
-      </div>
-
-      <div style={{ padding: 24 }}>
-        {activeTab === 'contact' ? (
-          <form>
-            <input
-              placeholder="Full Name"
-              style={inputStyle}
-            />
-
-            <input
-              placeholder="Email"
-              style={inputStyle}
-            />
-
-            <textarea
-              placeholder="Message"
-              rows={5}
-              style={inputStyle}
-            />
-
-            <button style={submitBtn}>
-              Send Message
-            </button>
-          </form>
-        ) : (
-          <form>
-            <input
-              placeholder="Institution"
-              style={inputStyle}
-            />
-
-            <input
-              placeholder="Research Area"
-              style={inputStyle}
-            />
-
-            <textarea
-              rows={5}
-              placeholder="Project Details"
-              style={inputStyle}
-            />
-
-            <button style={submitBtn}>
-              Submit Proposal
-            </button>
-          </form>
+          </>
         )}
-      </div>
-    </div>
-  </>
-)}
 
 
 
@@ -944,122 +970,122 @@ const toggleSection = (key) => {
             </div>
           </div>
           {filteredPubs.map((pub, i) => (
-  <div
-    key={i}
-    onMouseEnter={() => setHoveredPub(i)}
-    onMouseLeave={() => setHoveredPub(null)}
-    style={{
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: 32,
-      padding: '24px 0',
-      borderBottom: '1px solid #f2ece8',
-      transition: 'all .3s ease',
-      cursor: 'pointer',
-    }}
-  >
-    <div
-      style={{
-        fontSize: 12,
-        color: hoveredPub === i ? '#a64b2a' : '#6d5a50',
-        fontWeight: 500,
-        width: 36,
-        flexShrink: 0,
-        paddingTop: 2,
-      }}
-    >
-      {pub.year}
-    </div>
+            <div
+              key={i}
+              onMouseEnter={() => setHoveredPub(i)}
+              onMouseLeave={() => setHoveredPub(null)}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 32,
+                padding: '24px 0',
+                borderBottom: '1px solid #f2ece8',
+                transition: 'all .3s ease',
+                cursor: 'pointer',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  color: hoveredPub === i ? '#a64b2a' : '#6d5a50',
+                  fontWeight: 500,
+                  width: 36,
+                  flexShrink: 0,
+                  paddingTop: 2,
+                }}
+              >
+                {pub.year}
+              </div>
 
-    <div style={{ flex: 1 }}>
-      <div
-        style={{
-          fontSize: 16,
-          fontWeight: 600,
-          color:
-            hoveredPub === i
-              ? '#a64b2a'
-              : pub.highlight
-              ? '#a64b2a'
-              : '#2c1610',
-          marginBottom: 4,
-          transition: 'color .3s ease',
-        }}
-      >
-        {pub.title}
-      </div>
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color:
+                      hoveredPub === i
+                        ? '#a64b2a'
+                        : pub.highlight
+                          ? '#a64b2a'
+                          : '#2c1610',
+                    marginBottom: 4,
+                    transition: 'color .3s ease',
+                  }}
+                >
+                  {pub.title}
+                </div>
 
-      {pub.venue && (
-        <div
-          style={{
-            fontSize: 13,
-            fontStyle: 'italic',
-            color: '#6d5a50',
-            marginBottom: 8,
-          }}
-        >
-          {pub.venue}
-        </div>
-      )}
+                {pub.venue && (
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontStyle: 'italic',
+                      color: '#6d5a50',
+                      marginBottom: 8,
+                    }}
+                  >
+                    {pub.venue}
+                  </div>
+                )}
 
-      {hoveredPub === i && (
-        <div
-          style={{
-            fontSize: 13,
-            color: '#6d5a50',
-            lineHeight: 1.7,
-            maxWidth: 700,
-            animation: 'fadeIn .3s ease',
-          }}
-        >
-          {pub.abstract}
-        </div>
-      )}
-    </div>
+                {hoveredPub === i && (
+                  <div
+                    style={{
+                      fontSize: 13,
+                      color: '#6d5a50',
+                      lineHeight: 1.7,
+                      maxWidth: 700,
+                      animation: 'fadeIn .3s ease',
+                    }}
+                  >
+                    {pub.abstract}
+                  </div>
+                )}
+              </div>
 
-    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-      <div style={{ textAlign: 'right' }}>
-        <div
-          style={{
-            fontSize: 9,
-            letterSpacing: '0.1em',
-            color: '#6d5a50',
-            fontWeight: 600,
-            marginBottom: 2,
-          }}
-        >
-          CITED
-        </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div style={{ textAlign: 'right' }}>
+                  <div
+                    style={{
+                      fontSize: 9,
+                      letterSpacing: '0.1em',
+                      color: '#6d5a50',
+                      fontWeight: 600,
+                      marginBottom: 2,
+                    }}
+                  >
+                    CITED
+                  </div>
 
-        <div
-          style={{
-            fontSize: 22,
-            fontWeight: 700,
-            color: hoveredPub === i ? '#a64b2a' : '#2c1610',
-            transition: 'color .3s ease',
-          }}
-        >
-          {pub.cited}
-        </div>
-      </div>
+                  <div
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: hoveredPub === i ? '#a64b2a' : '#2c1610',
+                      transition: 'color .3s ease',
+                    }}
+                  >
+                    {pub.cited}
+                  </div>
+                </div>
 
-      <button
-        style={{
-          width: 32,
-          height: 32,
-          border: '1px solid #d2c9c2',
-          borderRadius: 4,
-          background: hoveredPub === i ? '#a64b2a' : 'transparent',
-          color: hoveredPub === i ? '#fff' : '#2c1610',
-          cursor: 'pointer',
-          transition: 'all .3s ease',
-        }}
-      >
-        ↗
-      </button>
-    </div>
-  </div>
-))}
+                <button
+                  style={{
+                    width: 32,
+                    height: 32,
+                    border: '1px solid #d2c9c2',
+                    borderRadius: 4,
+                    background: hoveredPub === i ? '#a64b2a' : 'transparent',
+                    color: hoveredPub === i ? '#fff' : '#2c1610',
+                    cursor: 'pointer',
+                    transition: 'all .3s ease',
+                  }}
+                >
+                  ↗
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -1209,107 +1235,107 @@ const toggleSection = (key) => {
             {/* Col 1 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {[mediaItems[0], mediaItems[3], mediaItems[5]].map((m, i) => {
-  const key = `left-${i}`;
-  const isHovered = hoveredCard === key;
+                const key = `left-${i}`;
+                const isHovered = hoveredCard === key;
 
-  return (
-    <div
-      key={m.title}
-      onMouseEnter={() => setHoveredCard(key)}
-      onMouseLeave={() => setHoveredCard(null)}
-      style={{
-        ...cardStyle(isHovered),
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: 140,
-      }}
-    >
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 12,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 12,
-              color: isHovered ? '#fff' : '#a64b2a',
-            }}
-          >
-            ▷
-          </span>
+                return (
+                  <div
+                    key={m.title}
+                    onMouseEnter={() => setHoveredCard(key)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      ...cardStyle(isHovered),
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      minHeight: 140,
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          marginBottom: 12,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 12,
+                            color: isHovered ? '#fff' : '#a64b2a',
+                          }}
+                        >
+                          ▷
+                        </span>
 
-          <span
-            style={{
-              fontSize: 10,
-              letterSpacing: '0.1em',
-              fontWeight: 600,
-              color: isHovered ? '#fff' : '#6d5a50',
-            }}
-          >
-            {m.type}
-          </span>
-        </div>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            letterSpacing: '0.1em',
+                            fontWeight: 600,
+                            color: isHovered ? '#fff' : '#6d5a50',
+                          }}
+                        >
+                          {m.type}
+                        </span>
+                      </div>
 
-        <div
-          style={{
-            fontSize: 16,
-            fontWeight: 600,
-            color: isHovered ? '#fff' : '#2c1610',
-            lineHeight: 1.4,
-          }}
-        >
-          {m.title}
-        </div>
-      </div>
+                      <div
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 600,
+                          color: isHovered ? '#fff' : '#2c1610',
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {m.title}
+                      </div>
+                    </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          marginTop: 16,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: isHovered ? '#fff' : '#2c1610',
-            }}
-          >
-            {m.source}
-          </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        marginTop: 16,
+                      }}
+                    >
+                      <div>
+                        <div
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: isHovered ? '#fff' : '#2c1610',
+                          }}
+                        >
+                          {m.source}
+                        </div>
 
-          <div
-            style={{
-              fontSize: 12,
-              color: isHovered ? 'rgba(255,255,255,.75)' : '#6d5a50',
-            }}
-          >
-            {m.year}
-          </div>
-        </div>
+                        <div
+                          style={{
+                            fontSize: 12,
+                            color: isHovered ? 'rgba(255,255,255,.75)' : '#6d5a50',
+                          }}
+                        >
+                          {m.year}
+                        </div>
+                      </div>
 
-        <span
-          style={{
-            fontSize: 16,
-            color: isHovered ? '#fff' : '#6d5a50',
-            transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'all .3s ease',
-          }}
-        >
-          ↗
-        </span>
-      </div>
-    </div>
-  );
-})}
+                      <span
+                        style={{
+                          fontSize: 16,
+                          color: isHovered ? '#fff' : '#6d5a50',
+                          transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+                          transition: 'all .3s ease',
+                        }}
+                      >
+                        ↗
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             {/* Col 2 — tall keynote card */}
             <div style={{ border: '1px solid #d2c9c2', borderRadius: 8, padding: '20px 24px', background: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -1331,146 +1357,136 @@ const toggleSection = (key) => {
             {/* Col 3 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {[mediaItems[2], mediaItems[4]].map((m, i) => {
-  const key = `right-${i}`;
-  const isHovered = hoveredCard === key;
+                const key = `right-${i}`;
+                const isHovered = hoveredCard === key;
 
-  return (
-    <div
-      key={m.title}
-      onMouseEnter={() => setHoveredCard(key)}
-      onMouseLeave={() => setHoveredCard(null)}
-      style={{
-        background: isHovered ? '#a64b2a' : '#fff',
-        border: `1px solid ${isHovered ? '#a64b2a' : '#d2c9c2'}`,
-        borderRadius: 8,
-        padding: '20px 24px',
-        flex: 1,
-        minHeight: 140,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        transition: 'all .3s ease',
-        cursor: 'pointer',
-      }}
-    >
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 12,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 12,
-              color: isHovered ? '#fff' : '#a64b2a',
-            }}
-          >
-            ▷
-          </span>
+                return (
+                  <div
+                    key={m.title}
+                    onMouseEnter={() => setHoveredCard(key)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      background: isHovered ? '#a64b2a' : '#fff',
+                      border: `1px solid ${isHovered ? '#a64b2a' : '#d2c9c2'}`,
+                      borderRadius: 8,
+                      padding: '20px 24px',
+                      flex: 1,
+                      minHeight: 140,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      transition: 'all .3s ease',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          marginBottom: 12,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 12,
+                            color: isHovered ? '#fff' : '#a64b2a',
+                          }}
+                        >
+                          ▷
+                        </span>
 
-          <span
-            style={{
-              fontSize: 10,
-              letterSpacing: '0.1em',
-              fontWeight: 600,
-              color: isHovered ? '#fff' : '#6d5a50',
-            }}
-          >
-            {m.type}
-          </span>
-        </div>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            letterSpacing: '0.1em',
+                            fontWeight: 600,
+                            color: isHovered ? '#fff' : '#6d5a50',
+                          }}
+                        >
+                          {m.type}
+                        </span>
+                      </div>
 
-        <div
-          style={{
-            fontSize: 16,
-            fontWeight: 600,
-            color: isHovered ? '#fff' : '#2c1610',
-            lineHeight: 1.4,
-          }}
-        >
-          {m.title}
-        </div>
-      </div>
+                      <div
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 600,
+                          color: isHovered ? '#fff' : '#2c1610',
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {m.title}
+                      </div>
+                    </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          marginTop: 16,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: isHovered ? '#fff' : '#2c1610',
-            }}
-          >
-            {m.source}
-          </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        marginTop: 16,
+                      }}
+                    >
+                      <div>
+                        <div
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: isHovered ? '#fff' : '#2c1610',
+                          }}
+                        >
+                          {m.source}
+                        </div>
 
-          <div
-            style={{
-              fontSize: 12,
-              color: isHovered ? 'rgba(255,255,255,.75)' : '#6d5a50',
-            }}
-          >
-            {m.year}
-          </div>
-        </div>
+                        <div
+                          style={{
+                            fontSize: 12,
+                            color: isHovered ? 'rgba(255,255,255,.75)' : '#6d5a50',
+                          }}
+                        >
+                          {m.year}
+                        </div>
+                      </div>
 
-        <span
-          style={{
-            fontSize: 16,
-            color: isHovered ? '#fff' : '#6d5a50',
-            transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'all .3s ease',
-          }}
-        >
-          ↗
-        </span>
-      </div>
-    </div>
-  );
-})}
+                      <span
+                        style={{
+                          fontSize: 16,
+                          color: isHovered ? '#fff' : '#6d5a50',
+                          transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+                          transition: 'all .3s ease',
+                        }}
+                      >
+                        ↗
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 10 — Collaboration Network
-      ══════════════════════════════════════════════════════ */}
+    SECTION 10 — Collaboration Network
+══════════════════════════════════════════════════════ */}
       <section style={{ padding: '0 0 80px' }}>
         <div style={{ maxWidth: W, margin: '0 auto', padding: `0 ${px}px` }}>
           <SectionHeader num="10" title="Collaboration Network" />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 32, alignItems: 'start' }}>
-            {/* Bubble map */}
-            <div style={{ border: '1px solid #d2c9c2', borderRadius: 8, background: '#fff', overflow: 'hidden', position: 'relative', height: 320 }}>
-              {/* Grid lines */}
-              <svg width="100%" height="100%" style={{ position: 'absolute', top: 0, left: 0 }}>
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <line key={`v${i}`} x1={`${(i + 1) * (100 / 13)}%`} y1="0" x2={`${(i + 1) * (100 / 13)}%`} y2="100%" stroke="#f2ece8" strokeWidth="1" />
-                ))}
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <line key={`h${i}`} x1="0" y1={`${(i + 1) * (100 / 9)}%`} x2="100%" y2={`${(i + 1) * (100 / 9)}%`} stroke="#f2ece8" strokeWidth="1" />
-                ))}
-                {bubbles.map((b, i) => (
-                  <g key={i}>
-                    <circle cx={`${b.x}%`} cy={`${b.y}%`} r={b.r} fill="rgba(166,75,42,0.1)" stroke="none" />
-                    <circle cx={`${b.x}%`} cy={`${b.y}%`} r={4} fill="#a64b2a" />
-                  </g>
-                ))}
-              </svg>
+
+            {/* Lottie World Map */}
+            <div style={{ border: '1px solid #d2c9c2', borderRadius: 8, background: '#fff', overflow: 'hidden', height: 320, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <LottieMap />
             </div>
+
             {/* Partner list */}
             <div>
-              <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 600, color: '#6d5a50', marginBottom: 16 }}>8 ACTIVE PARTNER INSTITUTIONS</div>
+              <div style={{ fontSize: 10, letterSpacing: '0.1em', fontWeight: 600, color: '#6d5a50', marginBottom: 16 }}>
+                8 ACTIVE PARTNER INSTITUTIONS
+              </div>
               {collaborators.map((c, i) => (
                 <div key={c.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: i < collaborators.length - 1 ? '1px solid #f2ece8' : 'none' }}>
                   <div>
@@ -1484,6 +1500,7 @@ const toggleSection = (key) => {
                 START A COLLABORATION ↗
               </button>
             </div>
+
           </div>
         </div>
       </section>

@@ -3,6 +3,11 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Bell, ArrowRight, Search } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import DeptShowcase from '../components/dept/DeptShowCase'
+import StudentLifeStoryboard from '../components/dept/StudentLifeStoryboard'
+import JourneyOutcomeSplit from '../components/dept/JourneyOutcomeSplit'
+import DepartmentPulse from '../components/dept/DepartmentPulse'
+import IndustryCollaborationEcosystem from '../components/dept/IndustryCollaborationEcosystem'
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -2167,6 +2172,15 @@ function RouteComponent() {
                     ))}
                 </div>
             </section>
+
+            {/* ══════════════════════════════════════════════════
+          Scrolling Animation
+      ══════════════════════════════════════════════════ */}
+            <DeptShowcase />
+            <StudentLifeStoryboard />
+            <IndustryCollaborationEcosystem />
+            <JourneyOutcomeSplit />
+            <DepartmentPulse />
 
             {/* Scroll animation keyframe */}
             <style>{`
